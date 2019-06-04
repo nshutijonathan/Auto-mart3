@@ -3,10 +3,13 @@ import '@babel/polyfill/noConflict';
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import router from './routes/routes';
+
 // creating app instance
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(router);
 dotenv.config();
 // home route
 app.get('/', (req, res, next) => {

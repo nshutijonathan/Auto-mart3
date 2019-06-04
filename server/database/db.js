@@ -41,7 +41,7 @@ export const Droptables = () => {
 };
 export const Adminindex = () => {
   const Admin = `INSERT INTO users (email,first_name,last_name,password,address,user_type,is_admin)
-	VALUES ('nshutii@gmail.com','nshuti','jonathan','jonathan','kigali','admin','True') ON CONFLICT DO NOTHING returning * `;
+	VALUES ('nshuti@gmail.com','nshuti','jonathan','jonathan','kigali','admin','true') ON CONFLICT DO NOTHING returning * `;
   pool.query(Admin).then((res) => {
     console.log(res);
     pool.end();
