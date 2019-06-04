@@ -100,6 +100,51 @@ const Users = {
         message: error.message
       });
     }
+  },
+  async oneuser(req, res) {
+    const user_id = req.params.id;
+    try {
+      const { rows } = await pool.query('SELECT * FROM users WHERE id=$1', [user_id]);
+
+      if (rows.length > 0) {
+        return res.status(200).send({
+          status: 200,
+          message: `User with id ${req.params.id} retrieved successfully`,
+          data: rows[0]
+        });
+      }
+      return res.status(404).send({
+        status: 404,
+        message: `User with id ${req.params.id} not found`
+      });
+    } catch (error) {
+      return res.status(401).send({
+        status: 401,
+        message: error.message
+      });
+    }
+  },
+  async deleteoneuser(req, res) {
+    const user_id = req.params.id;
+    const Deletequery = 'DELETE FROM users WHERE id=$1 returning *';
+    try {
+      const { rows } = await pool.query(Deletequery, [user_id]);
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          message: `User with id ${req.params.id} not found`
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        message: `User with id ${req.params.id} deleted successfully`
+      });
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
   }
 };
 export default Users;
