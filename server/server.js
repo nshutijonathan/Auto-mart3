@@ -5,8 +5,11 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import router from './routes/routes';
 
+console.log(`NODE_ENV:${process.env.NODE_ENV}`);
+console.log(`NODE_ENV:${process.env.jwtPrivateKey}`);
 // creating app instance
 const app = express();
+console.log(`env':${app.get('env')}`);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);

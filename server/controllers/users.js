@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Usershelpers from '../helpers/users';
 import pool from '../database/connect';
+import Usersvalidations from '../validations/users';
 
 const Users = {
   async  create(req, res) {
@@ -17,20 +18,22 @@ const Users = {
       req.body.is_admin
     ];
     try {
-      const { rows } = await pool.query(createQuery, values);
-      const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
-      return res.status(201).send({
-        status: 201,
-        message: 'User successfully created',
-        data: {
-          token,
-          id: rows[0].id,
-          first_name: rows[0].first_name,
-          last_name: rows[0].last_name,
-          user_type: rows[0].user_type,
-          is_admin: rows[0].is_admin
-        }
-      });
+      if (Usersvalidations.validatesignup(req, res)) {
+        const { rows } = await pool.query(createQuery, values);
+        const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
+        return res.status(201).send({
+          status: 201,
+          message: 'User successfully created',
+          data: {
+            token,
+            id: rows[0].id,
+            first_name: rows[0].first_name,
+            last_name: rows[0].last_name,
+            user_type: rows[0].user_type,
+            is_admin: rows[0].is_admin
+          }
+        });
+      }
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
         return res.status(400).send({
@@ -58,20 +61,22 @@ const Users = {
       req.body.is_admin
     ];
     try {
-      const { rows } = await pool.query(createQuery, values);
-      const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
-      return res.status(201).send({
-        status: 201,
-        message: 'Admin successfully created',
-        data: {
-          token,
-          id: rows[0].id,
-          first_name: rows[0].first_name,
-          last_name: rows[0].last_name,
-          user_type: rows[0].user_type,
-          is_admin: rows[0].is_admin
-        }
-      });
+      if (Usersvalidations.validateadminsignup(req, res)) {
+        const { rows } = await pool.query(createQuery, values);
+        const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
+        return res.status(201).send({
+          status: 201,
+          message: 'Admin successfully created',
+          data: {
+            token,
+            id: rows[0].id,
+            first_name: rows[0].first_name,
+            last_name: rows[0].last_name,
+            user_type: rows[0].user_type,
+            is_admin: rows[0].is_admin
+          }
+        });
+      }
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
         return res.status(400).send({
