@@ -7,6 +7,7 @@ import Users from '../controllers/users';
 const router = express.Router();
 // Users routes
 router.post('/api/v2/auth/signup', Users.create);
+router.post('/api/v2/auth/signup/admin', [auth, admin], Users.admincreate);
 router.post('/api/v2/auth/signin', Users.signin);
 router.get('/api/v2/users', [auth, admin], Users.allusers);
 router.get('/api/v2/users/:id', [auth, admin], Users.oneuser);
