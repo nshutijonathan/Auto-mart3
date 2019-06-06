@@ -3,17 +3,16 @@ import '@babel/polyfill/noConflict';
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import router from './routes/routes';
-
-console.log(`NODE_ENV:${process.env.NODE_ENV}`);
-console.log(`NODE_ENV:${process.env.jwtPrivateKey}`);
 // creating app instance
 const app = express();
-console.log(`env':${app.get('env')}`);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
 dotenv.config();
+
+console.log(`${process.env.NODE_ENV} is enabled`);
 // home route
 app.get('/', (req, res, next) => {
   return res.status(200).send({

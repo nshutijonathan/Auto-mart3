@@ -9,11 +9,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"babel-node server/server.js",
-    "dev":"node --require @babel/register server/database/db Createtables && node --require @babel/register server/database/db Adminindex && nodemon --exec babel-node --presets @babel/preset-env server/server.js",
-    "create":"node --require @babel/register server/database/db Createtables",
-    "admin":"node --require @babel/register server/database/db Adminindex",
-    "drop":"node --require @babel/register server/database/db Droptables"
+    "testdb": "cross-env NODE_ENV=test nodemon --exec babel-node --presets @babel/preset-env server/server.js",
+    "start": "babel-node server/server.js",
+    "dev": "node --require @babel/register server/database/db Createtables && node --require @babel/register server/database/db Adminindex && nodemon --exec babel-node --presets @babel/preset-env server/server.js",
+    "create": "node --require @babel/register server/database/db Createtables",
+    "admin": "node --require @babel/register server/database/db Adminindex",
+    "drop": "node --require @babel/register server/database/db Droptables"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
@@ -28,6 +29,7 @@
     "chai-http": "^4.2.1",
     "cloudinary": "^1.14.0",
     "coveralls": "^3.0.3",
+    "cross-env": "^5.2.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",

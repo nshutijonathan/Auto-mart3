@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-
+// middle ware definition
 const auth = (req, res, next) => {
   const token = req.header('x-auth-token');
   if (!token) {
