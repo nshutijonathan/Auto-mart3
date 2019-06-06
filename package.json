@@ -9,9 +9,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testdb": "cross-env NODE_ENV=test nodemon --exec babel-node --presets @babel/preset-env server/server.js",
+    "testdb": "cross-env NODE_ENV=testing node --require @babel/register server/database/db Droptables && cross-env NODE_ENV=testing node --require @babel/register server/database/db Createtables && cross-env NODE_ENV=testing node --require @babel/register server/database/db Adminindex",
     "start": "babel-node server/server.js",
-    "dev": "node --require @babel/register server/database/db Createtables && node --require @babel/register server/database/db Adminindex && nodemon --exec babel-node --presets @babel/preset-env server/server.js",
+    "dev": "cross-env NODE_ENV=development node --require @babel/register server/database/db Createtables && node --require @babel/register server/database/db Adminindex && nodemon --exec babel-node --presets @babel/preset-env server/server.js",
     "create": "node --require @babel/register server/database/db Createtables",
     "admin": "node --require @babel/register server/database/db Adminindex",
     "drop": "node --require @babel/register server/database/db Droptables"
