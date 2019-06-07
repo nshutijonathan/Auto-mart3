@@ -79,13 +79,13 @@ const Users = {
       }
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
-        return res.status(400).send({
-          status: 400,
+        return res.status(409).send({
+          status: 409,
           message: 'User with that Email already exists'
         });
       }
-      return res.status(400).send({
-        status: 400,
+      return res.status(409).send({
+        status: 409,
         message: error.message
       });
     }
