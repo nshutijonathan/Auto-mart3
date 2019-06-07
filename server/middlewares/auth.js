@@ -14,7 +14,7 @@ const auth = (req, res, next) => {
     next();
   } catch (ex) {
     return res.status(400).send({
-      status: 4000,
+      status: 400,
       message: 'Invalid token'
     });
   }
