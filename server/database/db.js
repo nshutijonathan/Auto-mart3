@@ -24,6 +24,7 @@ export const Createtables = () => {
   manufacturer VARCHAR(30) NOT NULL,
   model VARCHAR(30) NOT NULL,
   body_type VARCHAR(30) NOT NULL,
+  photo VARCHAR(500) NOT NULL,
   FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE
   )`;
   const Queries = `${Users};${Cars}`;
