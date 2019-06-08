@@ -13,7 +13,21 @@ export const Createtables = () => {
 	user_type VARCHAR(20) NOT NULL,
 	is_admin VARCHAR(10) NOT NULL
 	)`;
-  const Queries = `${Users}`;
+  const Cars = `CREATE TABLE IF NOT EXISTS cars
+  (
+  id SERIAL PRIMARY KEY,
+  owner INTEGER NOT NULL,
+  created_on TIMESTAMP NOT NULL,
+  state VARCHAR(30) NOT NULL,
+  status VARCHAR(30) NOT NULL,
+  price DECIMAL(12,2) NOT NULL,
+  manufacturer VARCHAR(30) NOT NULL,
+  model VARCHAR(30) NOT NULL,
+  body_type VARCHAR(30) NOT NULL,
+  photo VARCHAR(500) NOT NULL,
+  FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE
+  )`;
+  const Queries = `${Users};${Cars}`;
   pool.query(Queries).then((res) => {
     console.log(res);
     pool.end();
@@ -25,7 +39,9 @@ export const Createtables = () => {
 };
 export const Droptables = () => {
   const Users = 'DROP TABLE IF EXISTS Users';
-  pool.query(Users)
+  const Cars = 'DROP TABLE IF EXISTS cars';
+  pool.query(Users);
+  pool.query(Cars)
     .then((res) => {
       console.log(res);
       pool.end();

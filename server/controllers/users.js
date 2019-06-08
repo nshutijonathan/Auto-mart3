@@ -20,7 +20,9 @@ const Users = {
     try {
       if (Usersvalidations.validatesignup(req, res)) {
         const { rows } = await pool.query(createQuery, values);
-        const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
+        const token = jwt.sign({
+          id: rows[0].id, email: rows[0].email, user_type: rows[0].user_type, is_admin: rows[0].is_admin
+        }, 'jwtPrivateKey');
         return res.status(201).send({
           status: 201,
           message: 'User successfully created',
@@ -63,7 +65,9 @@ const Users = {
     try {
       if (Usersvalidations.validateadminsignup(req, res)) {
         const { rows } = await pool.query(createQuery, values);
-        const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
+        const token = jwt.sign({
+          id: rows[0].id, email: rows[0].email, user_type: rows[0].user_type, is_admin: rows[0].is_admin
+        }, 'jwtPrivateKey');
         return res.status(201).send({
           status: 201,
           message: 'Admin successfully created',
@@ -112,7 +116,9 @@ const Users = {
           message: 'INVALID email or password'
         });
       }
-      const token = jwt.sign({ id: rows[0].id, user_type: rows[0].user_type, is_admin: rows[0].is_admin }, 'jwtPrivateKey');
+      const token = jwt.sign({
+        id: rows[0].id, email: rows[0].email, user_type: rows[0].user_type, is_admin: rows[0].is_admin
+      }, 'jwtPrivateKey');
       return res.status(200).send({
         status: 200,
         message: 'Logged in successfully',
