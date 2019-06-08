@@ -23,7 +23,8 @@ export const Createtables = () => {
   price DECIMAL(12,2) NOT NULL,
   manufacturer VARCHAR(30) NOT NULL,
   model VARCHAR(30) NOT NULL,
-  body_type VARCHAR(30) NOT NULL
+  body_type VARCHAR(30) NOT NULL,
+  FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE
   )`;
   const Queries = `${Users};${Cars}`;
   pool.query(Queries).then((res) => {
