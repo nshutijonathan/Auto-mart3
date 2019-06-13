@@ -176,6 +176,29 @@ const Users = {
       });
     }
   },
+  async currentuser(req, res) {
+    const user_id = req.user.id;
+    try {
+      const { rows } = await pool.query('SELECT * FROM users WHERE id=$1', [user_id]);
+      console.log(req.user);
+      if (rows.length > 0) {
+        return res.status(200).send({
+          status: 200,
+          message: 'User retrieved successfully',
+        });
+      }
+      return res.status(404).send({
+        status: 404,
+        message: 'User not found'
+      });
+    } catch (error) {
+      return res.status(401).send({
+        status: 401,
+        message: error.message
+      });
+    }
+  },
+
   async deleteoneuser(req, res) {
     const user_id = req.params.id;
     const Deletequery = 'DELETE FROM users WHERE id=$1 returning *';

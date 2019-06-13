@@ -38,6 +38,9 @@ class Usersvalidations {
     if (!validator.isLength(req.body.password, { min: 6, max: 250 })) {
       throw Error('password is too short');
     }
+    if (validator.isAlphanumeric(req.body.password)) {
+      throw Error('password is not strong');
+    }
     if (validator.isEmpty(req.body.address)) {
       throw Error('address is required');
     }
