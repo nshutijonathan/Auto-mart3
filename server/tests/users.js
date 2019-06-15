@@ -4,11 +4,10 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import server from '../server';
 
-
 chai.use(chaiHttp);
 chai.should();
 dotenv.config();
-const token = process.env.admintoken;
+const token = process.env.jwtPrivateKey;
 const invalid_token = process.env.INVALID_TOKEN;
 describe('get welcome message', () => {
   it('should return welcome message', (done) => {
