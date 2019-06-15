@@ -50,6 +50,17 @@ const Users = {
     }
   },
   async  admincreate(req, res) {
+    const email = [req.user.email];
+    const emailvalue = req.user.email;
+    const owner = req.user.id;
+    const checkUser = 'SELECT * FROM users WHERE email=$1';
+    const FoundUser = await pool.query(checkUser, email);
+    if (FoundUser.rowCount === 0) {
+      return res.status(404).send({
+        status: 404,
+        message: "This token can't create an admin,token owner is no longer in db"
+      });
+    }
     const hashpassword = Usershelpers.hashPassword(req.body.password);
     const createQuery = `INSERT INTO users(email,first_name,last_name,password,address,user_type,is_admin)
     VALUES($1,$2,$3,$4,$5,$6,$7) returning *`;
@@ -105,8 +116,8 @@ const Users = {
     try {
       const { rows } = await pool.query(text, [req.body.email]);
       if (!rows[0]) {
-        return res.status(400).send({
-          status: 400,
+        return res.status(401).send({
+          status: 401,
           message: 'INVALID email or password'
         });
       }
@@ -130,6 +141,38 @@ const Users = {
           user_type: rows[0].user_type,
           is_admin: rows[0].is_admin
         }
+      });
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async resetpassword(req, res) {
+    const text = 'SELECT * FROM users WHERE email=$1';
+
+    try {
+      const { rows } = await pool.query(text, [req.params.email]);
+      console.log(rows);
+      if (!rows[0]) {
+        return res.status(401).send({
+          status: 401,
+          message: 'INVALID email or old password'
+        });
+      }
+      if (!Usershelpers.comparePassword(rows[0].password, req.body.old_password)) {
+        return res.status(401).send({
+          status: 401,
+          message: 'INVALID email or old password'
+        });
+      }
+      const hashpassword = Usershelpers.hashPassword(req.body.new_password);
+      const pswdreset = 'UPDATE users SET password=$1 WHERE email=$2';
+      await pool.query(pswdreset, [hashpassword, req.params.email]);
+      return res.status(200).send({
+        status: 200,
+        message: `User password with ${req.params.email} email is successfully reset`
       });
     } catch (error) {
       return res.status(400).send({
@@ -170,8 +213,8 @@ const Users = {
         message: `User with id ${req.params.id} not found`
       });
     } catch (error) {
-      return res.status(401).send({
-        status: 401,
+      return res.status(400).send({
+        status: 400,
         message: error.message
       });
     }
@@ -184,16 +227,17 @@ const Users = {
       if (rows.length > 0) {
         return res.status(200).send({
           status: 200,
-          message: 'User retrieved successfully',
+          message: 'Current user retrieved successfully',
+          data: req.user
         });
       }
       return res.status(404).send({
         status: 404,
-        message: 'User not found'
+        message: 'Current user User not found'
       });
     } catch (error) {
-      return res.status(401).send({
-        status: 401,
+      return res.status(400).send({
+        status: 400,
         message: error.message
       });
     }

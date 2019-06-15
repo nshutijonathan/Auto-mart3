@@ -15,7 +15,7 @@ router.get('/api/v2/users', [auth, admin], Users.allusers);
 router.get('/api/v2/users/:id', [auth, admin], Users.oneuser);
 router.delete('/api/v2/users/:id', [auth, admin], Users.deleteoneuser);
 router.get('/api/v2/user/me', [auth], Users.currentuser);
-
+router.put('/api/v2/:email/reset_password', Users.resetpassword);
 // Cars advert routes
 router.post('/api/v2/car', [auth, seller, imageUploader], Cars.create);
 router.get('/api/v2/cars', [auth], Cars.allcars);
