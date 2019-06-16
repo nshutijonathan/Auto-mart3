@@ -38,8 +38,8 @@ export const Createtables = () => {
     });
 };
 export const Droptables = () => {
-  const Users = 'DROP TABLE IF EXISTS Users';
-  const Cars = 'DROP TABLE IF EXISTS cars';
+  const Users = 'DROP TABLE IF EXISTS users CASCADE';
+  const Cars = 'DROP TABLE IF EXISTS cars CASCADE';
   pool.query(Users);
   pool.query(Cars)
     .then((res) => {
