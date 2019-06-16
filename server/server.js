@@ -8,6 +8,8 @@ import router from './routes/routes';
 import pool from './database/connect';
 // creating app instance
 const app = express();
+
+// body-parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
