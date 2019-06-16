@@ -18,5 +18,5 @@ router.get('/api/v2/user/me', [auth], Users.currentuser);
 router.put('/api/v2/:email/reset_password', Users.resetpassword);
 // Cars advert routes
 router.post('/api/v2/car', [auth, seller, imageUploader], Cars.create);
-router.get('/api/v2/cars', [auth], Cars.allcars);
+router.get('/api/v2/cars', Cars.allcars);
 export default router;
