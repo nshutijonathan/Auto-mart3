@@ -170,7 +170,32 @@ const Cars = {
         message: error.message
       });
     }
+  },
+  async getonecar(req,res){
+    const CarId = req.params.id;
+    try {
+      const { rows } = await pool.query('SELECT * FROM cars WHERE id=$1', [CarId]);
+
+      if (rows.length > 0) {
+        return res.status(200).send({
+          status: 200,
+          message: `Car with id ${req.params.id} retrieved successfully`,
+          data: rows[0]
+        });
+      }
+      return res.status(404).send({
+        status: 404,
+        message: `Car with id ${req.params.id} not found`
+      });
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
   }
+
+
 
 };
 export default Cars;
