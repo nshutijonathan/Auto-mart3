@@ -40,7 +40,7 @@ const Cars = {
             email: emailvalue,
             created_on: date,
             manufacturer: rows[0].manufacturer,
-        	model: rows[0].model,
+        	  model: rows[0].model,
             price: rows[0].price,
             state: rows[0].state,
             status: rows[0].status,
