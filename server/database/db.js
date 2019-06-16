@@ -27,14 +27,16 @@ export const Createtables = () => {
   photo VARCHAR(500) NOT NULL,
   FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE
   )`;
-  const Orders = `CREATE TABLE IF NOT EXISTS orders(
+  const Orders = `CREATE TABLE IF NOT EXISTS Orders
+  (
   id SERIAL PRIMARY KEY,
   buyer INTEGER NOT NULL,
-  car_id INTEGER NOT NULL,
-  amount price DECIMAL(12,2) NOT NULL,
-  status body_type VARCHAR(30) NOT NULL,
+  car_id SERIAL,
+  created_on TIMESTAMP NOT NULL,
+  amount DECIMAL(12,2) NOT NULL,
+  status VARCHAR(30) NOT NULL
   )`;
-  const Queries = `${Users};${Cars},${Orders}`;
+  const Queries = `${Users};${Cars};${Orders}`;
   pool.query(Queries).then((res) => {
     console.log(res);
     pool.end();

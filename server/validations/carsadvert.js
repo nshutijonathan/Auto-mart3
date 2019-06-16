@@ -12,8 +12,8 @@ class Carsvalidations {
       throw Error('This Field status must not be empty');
     }
 
-    if (req.body.status !== 'sold' && req.body.status !== 'available') {
-      throw Error('this status field must be sold or available');
+    if (req.body.status !== 'available') {
+      throw Error('this status field must available');
     }
     if (validator.isEmpty(req.body.price)) {
       throw Error('Price field must not be empty');
