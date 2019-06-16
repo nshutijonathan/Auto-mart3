@@ -28,6 +28,12 @@ const Orders = {
             message: `Car with id ${req.body.car_id} not Found`
           });
         }
+        if (FoundCar.rows[0].status !== 'available') {
+          return res.status(404).send({
+            status: 404,
+            message: `Car with id ${req.body.car_id} is sold`
+          });
+        }
         const carPrice = FoundCar.rows[0].price;
 		 const createQuery = `INSERT INTO orders(buyer,car_id,created_on,amount,status)
 		VALUES($1,$2,$3,$4,$5) returning *`;
@@ -60,8 +66,8 @@ const Orders = {
         message: error.message
       });
     }
-  }
-  async allorders(req,res){
+  },
+  async allorders(req, res) {
     try {
       const text = 'SELECT * FROM orders';
       const { rows } = await pool.query(text);
@@ -75,7 +81,53 @@ const Orders = {
         message: error.message
       });
     }
+  },
+  async patchOrderPrice(req, res) {
+    try {
+      if (Ordersvalidations.patchprice(req, res)) {
+        const OrderId = parseInt(req.params.id, 10);
+        const FindOrder = 'SELECT * FROM orders where id=$1';
+        const FoundOrder = await pool.query(FindOrder, [OrderId]);
+        if (FoundOrder.rowCount === 0) {
+          return res.status(404).send({
+            status: 404,
+            message: `Order with id ${req.params.id} not found`
 
+          });
+        }
+        if (req.user.id !== FoundOrder.rows[0].buyer) {
+          return res.status(401).send({
+            status: 401,
+            message: `The Order with ${req.params.id} id  is not Yours`
+          });
+        }
+        console.log(FoundOrder.rows[0]);
+        if (FoundOrder.rows[0].status !== 'pending') {
+          return res.status(400).send({
+            status: 400,
+            message: 'The order is not still pending'
+          });
+        }
+        const PriceUpdate = 'UPDATE orders SET amount=$1 WHERE id=$2';
+        const response = await pool.query(PriceUpdate, [req.body.amount, OrderId]);
+        return res.status(200).send({
+          status: 200,
+          message: `Order with ${req.params.id} is successfully updated`,
+          data: {
+            id: FoundOrder.rows[0].id,
+            car_id: FoundOrder.rows[0].car_id,
+            status: FoundOrder.rows[0].status,
+            old_price_offered: FoundOrder.rows[0].amount,
+            new_price_offered: req.body.amount,
+          }
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
   }
 };
 export default Orders;

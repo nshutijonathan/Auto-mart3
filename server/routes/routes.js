@@ -22,4 +22,6 @@ router.post('/api/v2/car', [auth, imageUploader], Cars.create);
 router.get('/api/v2/cars', Cars.allcars);
 // Purchasing order routes
 router.post('/api/v2/order', [auth], Orders.create);
+router.get('/api/v2/orders', [auth, admin], Orders.allorders);
+router.patch('/api/v2/:id/price', [auth], Orders.patchOrderPrice);
 export default router;

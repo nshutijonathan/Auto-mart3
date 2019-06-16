@@ -21,5 +21,20 @@ class Ordersvalidations {
     }
     return true;
   }
+
+  static patchprice(req, res) {
+    if (!(validator.isNumeric(req.body.amount))) {
+      throw Error('Invalid amount syntax');
+    }
+    if (validator.isEmpty(req.body.amount)) {
+      throw Error('this field amount is required');
+    }
+    if (req.body.amount < 1) {
+      throw Error('Invalid amount');
+    } else {
+
+    }
+    return true;
+  }
 }
 export default Ordersvalidations;
