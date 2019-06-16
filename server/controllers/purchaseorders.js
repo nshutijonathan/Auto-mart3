@@ -61,5 +61,21 @@ const Orders = {
       });
     }
   }
+  async allorders(req,res){
+    try {
+      const text = 'SELECT * FROM orders';
+      const { rows } = await pool.query(text);
+      return res.status(200).send({
+        status: 200,
+        message: 'all orders retrieved successfully',
+        data: rows
+      });
+    } catch (error) {
+      return res.status(400).send({
+        message: error.message
+      });
+    }
+
+  }
 };
 export default Orders;
