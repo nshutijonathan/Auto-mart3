@@ -35,7 +35,7 @@ export const Createtables = () => {
   created_on TIMESTAMP NOT NULL,
   amount DECIMAL(12,2) NOT NULL,
   status VARCHAR(30) NOT NULL,
-  FOREIGN KEY (buyer) REFERENCES users(id) ON DELETE CASCADE
+  FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE
   )`;
   const Queries = `${Users};${Cars};${Orders}`;
   pool.query(Queries).then((res) => {

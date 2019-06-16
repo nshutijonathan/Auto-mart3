@@ -70,6 +70,54 @@ const Cars = {
         message: error.message
       });
   	}
+  },
+  async updatecarstatus(req, res) {
+    try {
+      if (Carsvalidations.statusupdate(req, res)) {
+        const CarId = parseInt(req.params.id, 10);
+        const FindCar = 'SELECT * FROM cars where id=$1';
+        const FoundCar = await pool.query(FindCar, [CarId]);
+        if (FoundCar.rowCount === 0) {
+          return res.status(404).send({
+            status: 404,
+            message: `Car with id ${req.params.id} not found`
+
+          });
+        }
+        console.log(FoundCar.rows[0]);
+        if (req.user.id !== FoundCar.rows[0].owner) {
+          return res.status(401).send({
+            status: 401,
+            message: `The Car with ${req.params.id} id  is not Yours`
+          });
+        }
+        const SellerId = FoundCar.rows[0].owner;
+        const StatusUpdate = 'UPDATE cars SET status=$1 WHERE id=$2';
+        const SellerEmail = 'SELECT * FROM users WHERE id=$1';
+        const response = await pool.query(StatusUpdate, [req.body.status, CarId]);
+        const SellerEmailResponse = await pool.query(SellerEmail, [SellerId]);
+        return res.status(200).send({
+          status: 200,
+          message: `Car with id ${req.params.id} is successfully updated`,
+          data: {
+            id: FoundCar.rows[0].id,
+            email: SellerEmailResponse.rows[0].email,
+            created_on: FoundCar.rows[0].created_on,
+            manufacturer: FoundCar.rows[0].manufacturer,
+            model: FoundCar.rows[0].model,
+            price: FoundCar.rows[0].price,
+            state: FoundCar.rows[0].state,
+            status: req.body.status
+
+          }
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
   }
 };
 export default Cars;
