@@ -62,5 +62,21 @@ class Carsvalidations {
     }
     return true;
   }
+
+  static statusupdate(req, res) {
+    if (!(req.body.status)) {
+      throw Error('this status field  is required ');
+    }
+    if (validator.isEmpty(req.body.status)) {
+      throw Error('This Field status must not be empty');
+    }
+
+    if (req.body.status !== 'available' && req.body.status !== 'sold') {
+      throw Error('this status field must available or sold');
+    } else {
+
+    }
+    return true;
+  }
 }
 export default Carsvalidations;
