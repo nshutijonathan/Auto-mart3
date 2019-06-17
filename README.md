@@ -1,10 +1,9 @@
-<<<<<<< HEAD
+
 [![Build Status](https://travis-ci.org/nshutijonathan/Auto-mart3.svg?branch=develop)](https://travis-ci.org/nshutijonathan/Auto-mart3)
 [![Coverage Status](https://coveralls.io/repos/github/nshutijonathan/Auto-mart3/badge.svg?branch=develop)](https://coveralls.io/github/nshutijonathan/Auto-mart3?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb6704768490b0cb3cd4/maintainability)](https://codeclimate.com/github/nshutijonathan/Auto-mart3/maintainability)
 
-=======
->>>>>>> 5de55663ce5f74695d3d3945d3b975635e8304a1
+
 # Auto-mart
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.
 
@@ -12,7 +11,7 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 ## UI Technologies
 * HTML.
 * CSS.
-* JS.
+* JS
 
 
 ### UI link
