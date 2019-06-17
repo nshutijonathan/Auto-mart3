@@ -57,6 +57,15 @@ class Carsvalidations {
     }
     if (!(req.body.price > 0)) {
       throw Error('Price must be valid');
+    }
+    if (!(validator.isNumeric(req.body.amount))) {
+      throw Error('Invalid amount syntax');
+    }
+    if (validator.isEmpty(req.body.amount)) {
+      throw Error('this field amount is required');
+    }
+    if (req.body.amount < 1) {
+      throw Error('Invalid amount');
     } else {
 
     }
@@ -73,6 +82,147 @@ class Carsvalidations {
 
     if (req.body.status !== 'available' && req.body.status !== 'sold') {
       throw Error('this status field must available or sold');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availablerange(req, res) {
+    if (!(req.query.min_price)) {
+      throw Error('min_price is required');
+    }
+    if (!(req.query.max_price)) {
+      throw Error('max_price is required');
+    }
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!validator.isAlphanumeric(req.query.min_price)) {
+      throw Error('min_price must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.max_price)) {
+      throw Error('max_price must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availablenew(req, res) {
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!(req.query.state)) {
+      throw Error('state is required');
+    }
+    if (req.query.state !== 'new') {
+      throw Error('state must be equal to new');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.state)) {
+      throw Error('state must not contain special characters');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availableused(req, res) {
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!(req.query.state)) {
+      throw Error('state is required');
+    }
+    if (req.query.state !== 'used') {
+      throw Error('state must be equal to used');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.state)) {
+      throw Error('state must not contain special characters');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availableused(req, res) {
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!(req.query.state)) {
+      throw Error('state is required');
+    }
+    if (req.query.state !== 'used') {
+      throw Error('state must be equal to used');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.state)) {
+      throw Error('state must not contain special characters');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availablemanufactures(req, res) {
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!(req.query.manufacturer)) {
+      throw Error('manufacturer is required');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.manufacturer)) {
+      throw Error('manufacturer must not contain special characters');
+    } else {
+
+    }
+    return true;
+  }
+
+  static availablebodytypes(req, res) {
+    if (!(req.query.status)) {
+      throw Error('status is required');
+    }
+    if (req.query.status !== 'available') {
+      throw Error('status must be equal to available');
+    }
+    if (!(req.query.body_type)) {
+      throw Error('body_type  is required');
+    }
+    if (!validator.isAlphanumeric(req.query.status)) {
+      throw Error('status must not contain special characters');
+    }
+    if (!validator.isAlphanumeric(req.query.body_type)) {
+      throw Error('body_type must not contain special characters');
     } else {
 
     }
