@@ -1,14 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import server from '../server';
 
 chai.use(chaiHttp);
 chai.should();
-dotenv.config();
 const token = process.env.jwtPrivateKey;
 const invalid_token = process.env.INVALID_TOKEN;
+const { expect } = chai;
 describe('get welcome message', () => {
   it('should return welcome message', (done) => {
     chai.request(server).get('/').end((err, res) => {

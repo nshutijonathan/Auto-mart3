@@ -127,12 +127,6 @@ class Carsvalidations {
     }
     if (req.query.state !== 'new') {
       throw Error('state must be equal to new');
-    }
-    if (!validator.isAlphanumeric(req.query.status)) {
-      throw Error('status must not contain special characters');
-    }
-    if (!validator.isAlphanumeric(req.query.state)) {
-      throw Error('state must not contain special characters');
     } else {
 
     }
@@ -151,36 +145,6 @@ class Carsvalidations {
     }
     if (req.query.state !== 'used') {
       throw Error('state must be equal to used');
-    }
-    if (!validator.isAlphanumeric(req.query.status)) {
-      throw Error('status must not contain special characters');
-    }
-    if (!validator.isAlphanumeric(req.query.state)) {
-      throw Error('state must not contain special characters');
-    } else {
-
-    }
-    return true;
-  }
-
-  static availableused(req, res) {
-    if (!(req.query.status)) {
-      throw Error('status is required');
-    }
-    if (req.query.status !== 'available') {
-      throw Error('status must be equal to available');
-    }
-    if (!(req.query.state)) {
-      throw Error('state is required');
-    }
-    if (req.query.state !== 'used') {
-      throw Error('state must be equal to used');
-    }
-    if (!validator.isAlphanumeric(req.query.status)) {
-      throw Error('status must not contain special characters');
-    }
-    if (!validator.isAlphanumeric(req.query.state)) {
-      throw Error('state must not contain special characters');
     } else {
 
     }
