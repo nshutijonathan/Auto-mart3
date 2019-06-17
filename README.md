@@ -11,7 +11,7 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 ## UI Technologies
 * HTML.
 * CSS.
-* JS.
+* JS
 
 
 ### UI link

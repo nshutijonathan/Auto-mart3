@@ -9,16 +9,17 @@ if (process.env.NODE_ENV === 'development') {
   });
 
   pool.on('connect', () => {
-    console.log('connected to database');
+    console.log(`connected to database ${process.env.DATABASE_URL}`);
   });
 }
 if (process.env.NODE_ENV === 'testing') {
   pool = new Pool({
     connectionString: process.env.DATABASE_TESTING
+
   });
 
   pool.on('connect', () => {
-    console.log('connected to database');
+    console.log(`connected to database ${process.env.DATABASE_TESTING}`);
   });
 }
 if (process.env.NODE_ENV === 'production') {
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 
   pool.on('connect', () => {
-    console.log('connected to database');
+    console.log(`connected to database ${process.env.DATABASE_HEROKU}`);
   });
 }
 export default pool;
