@@ -232,15 +232,22 @@ describe('Users', () => {
   });
 });
 describe('Admin', () => {
-  it('should sign up admin ', (done) => {
-    chai.request(server).post('/api/v2/auth/signup/admin').set('x-auth-token', token).send({
-      email: 'karimi@gmail.com',
-      first_name: 'nshuti',
-      last_name: 'jonathan',
-      password: 'chris@gmail.com',
-      address: 'kigali',
-      user_type: 'buyer',
-      is_admin: 'true'
+  it('should not  sign in admin ', (done) => {
+    chai.request(server).post('/api/v2/auth/signin/admin').send({
+      email: 'rrur@gmail.com',
+      password: 'ddss',
+
+    })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        done();
+      });
+  });
+  it('should not  sign in admin ', (done) => {
+    chai.request(server).post('/api/v2/auth/signin/admin').send({
+      email: '',
+      password: '',
+
     })
       .end((err, res) => {
         res.body.should.be.an('object');
