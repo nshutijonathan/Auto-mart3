@@ -171,7 +171,7 @@ const Cars = {
       });
     }
   },
-  async getonecar(req,res){
+  async getonecar(req, res) {
     const CarId = req.params.id;
     try {
       const { rows } = await pool.query('SELECT * FROM cars WHERE id=$1', [CarId]);
@@ -193,9 +193,193 @@ const Cars = {
         message: error.message
       });
     }
+  },
+  async unsoldcars(req, res) {
+    try {
+      const findUnsoldCars = 'SELECT * FROM cars WHERE status = $1';
+      const value = req.query.status;
+      const unsoldCars = await pool.query(findUnsoldCars, [value]);
+
+      if (!unsoldCars.rows[0]) {
+        res.status(404).json({
+          status: 404,
+          message: 'No available car found',
+          data: [],
+        });
+        return;
+      }
+      res.status(200).json({
+        status: 200,
+        data: unsoldCars.rows,
+      });
+    } catch (error) {
+      res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async unsoldcarsrange(req, res) {
+    try {
+      if (Carsvalidations.availablerange(req, res)) {
+        const {
+          min_price,
+          max_price
+        } = req.query;
+        const min = Math.min(min_price, max_price);
+        const max = Math.max(min_price, max_price);
+        const FindPrice = 'SELECT * FROM cars WHERE status=$1 AND price>=$2 AND price<=$3';
+        const values = [req.query.status, min, max];
+        const FoudRange = await pool.query(FindPrice, values);
+        if (!FoudRange.rows[0]) {
+          return res.status(404).send({
+            status: 404,
+            message: 'no cars in specified range',
+            data: []
+          });
+        }
+        return res.status(200).send({
+          status: 200,
+          data: FoudRange.rows
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async deletecaradvert(req, res) {
+    const CarAdId = req.params.id;
+    const Deletequery = 'DELETE FROM cars WHERE id=$1 returning *';
+    try {
+      const { rows } = await pool.query(Deletequery, [CarAdId]);
+      if (!rows[0]) {
+        return res.status(404).send({
+          status: 404,
+          message: `Car  with id ${req.params.id} not found`
+        });
+      }
+      return res.status(200).send({
+        status: 200,
+        message: `Car with id ${req.params.id} deleted successfully`
+      });
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async availablenewcars(req, res) {
+    try {
+      if (Carsvalidations.availablenew(req, res)) {
+        const {
+          status,
+          state
+        } = req.query;
+        const FindNewAvailable = 'SELECT * FROM cars WHERE status=$1 AND state=$2';
+        const values = [req.query.status, req.query.state];
+        const Found = await pool.query(FindNewAvailable, values);
+        if (!Found.rows[0]) {
+          return res.status(404).send({
+            status: 404,
+            message: 'no cars ',
+            data: []
+          });
+        }
+        return res.status(200).send({
+          status: 200,
+          data: Found.rows
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async availableusedcars(req, res) {
+    try {
+      if (Carsvalidations.availableused(req, res)) {
+        const {
+          status,
+          state
+        } = req.query;
+        const FindNewAvailable = 'SELECT * FROM cars WHERE status=$1 AND state=$2';
+        const values = [req.query.status, req.query.state];
+        const Found = await pool.query(FindNewAvailable, values);
+        if (!Found.rows[0]) {
+          return res.status(404).send({
+            status: 404,
+            message: 'no cars ',
+            data: []
+          });
+        }
+        return res.status(200).send({
+          status: 200,
+          data: Found.rows
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async availablemanufactures(req, res) {
+    try {
+      if (Carsvalidations.availablemanufactures(req, res)) {
+        const FindCars = 'SELECT * FROM cars WHERE status=$1 AND manufacturer=$2';
+        const values = [req.query.status, req.query.manufacturer];
+        const Found = await pool.query(FindCars, values);
+        if (!Found.rows[0]) {
+          return res.status(404).send({
+            status: 404,
+            message: 'no cars in specified range',
+            data: []
+          });
+        }
+        return res.status(200).send({
+          status: 200,
+          data: Found.rows
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
+  },
+  async availablebodytypes(req, res) {
+    try {
+      if (Carsvalidations.availablebodytypes(req, res)) {
+        const FindCars = 'SELECT * FROM cars WHERE status=$1 AND body_type=$2';
+        const values = [req.query.status, req.query.body_type];
+        const Found = await pool.query(FindCars, values);
+        if (!Found.rows[0]) {
+          return res.status(404).send({
+            status: 404,
+            message: 'no cars in specified range',
+            data: []
+          });
+        }
+        return res.status(200).send({
+          status: 200,
+          data: Found.rows
+        });
+      }
+    } catch (error) {
+      return res.status(400).send({
+        status: 400,
+        message: error.message
+      });
+    }
   }
-
-
 
 };
 export default Cars;
