@@ -51,9 +51,8 @@ export const Droptables = () => {
   const Users = 'DROP TABLE IF EXISTS users CASCADE';
   const Cars = 'DROP TABLE IF EXISTS cars CASCADE';
   const Orders = 'DROP TABLE IF EXISTS orders CASCADE';
-  pool.query(Users);
-  pool.query(Cars);
-  pool.query(Orders)
+  const Queries = `${Users};${Cars};${Orders}`;
+  pool.query(Queries)
     .then((res) => {
       console.log(res);
       pool.end();
@@ -63,7 +62,7 @@ export const Droptables = () => {
       pool.end();
     });
   pool.on('remove', () => {
-    console.log('client removed');
+    console.log(`client removed ${Queries}`);
     process.exit(0);
   });
 };
