@@ -7,6 +7,8 @@ import server from '../server';
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
+const token = process.env.jwtPrivateKey;
+const fakeToken = process.env.INVALID_TOKEN;
 describe('get welcome message', () => {
   it('should return welcome message', (done) => {
     chai.request(server).get('/').end((err, res) => {
@@ -192,14 +194,69 @@ describe('Users', () => {
   });
 });
 describe('Users', () => {
-  it('should delete a user', (done) => {
-    const admin = {
-      is_admin: 'true'
-    };
-    const token = jwt.sign(admin, process.env.jwtPrivateKey);
-    chai.request(server).delete('/api/v2/users/:100000000').set('x-auth-token', token).end((err, res) => {
+  it('should get all users', (done) => {
+    chai.request(server).get('/api/v2/users').set('x-auth-token', token).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(200);
+      res.body.should.have.property('message').eql('Users retrieved successfully');
+      res.body.data.should.be.an('array');
+      done();
+    });
+  });
+  it('should not get all  users', (done) => {
+    chai.request(server).get('/api/v2/users').end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(402);
+      res.body.should.have.property('message').eql('Access Denied.No token provided');
+      done();
+    });
+  });
+  it('should not get all  users', (done) => {
+    chai.request(server).get('/api/v2/users').set('x-auth-token', fakeToken).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Invalid token');
+      done();
+    });
+  });
+});
+describe('Users', () => {
+  it('should delete a user', (done) => {
+    chai.request(server).delete('/api/v2/users/1').set('x-auth-token', token).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(200);
+      res.body.should.have.property('message').eql('User with id 1 deleted successfully');
+      done();
+    });
+  });
+  it('should not delete a user', (done) => {
+    chai.request(server).delete('/api/v2/users/10').set('x-auth-token', token).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('User with id 10 not found');
+      done();
+    });
+  });
+  it('should not delete a user', (done) => {
+    chai.request(server).delete('/api/v2/users/1').end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(402);
+      res.body.should.have.property('message').eql('Access Denied.No token provided');
+      done();
+    });
+  });
+  it('should not delete a user', (done) => {
+    chai.request(server).delete('/api/v2/users/1').set('x-auth-token', fakeToken).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Invalid token');
       done();
     });
   });
