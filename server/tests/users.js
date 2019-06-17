@@ -201,7 +201,51 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(200);
+      res.body.should.have.property('message').eql('Logged in successfully');
+      done();
     });
+  });
+  it('should not sign in user', (done) => {
+    chai.request(server).post('/api/v2/auth/signin').send({
+      email: 'alice@gmail.com',
+      password: '2wer'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or password');
+      done();
+    });
+  });
+  it('should not sign in user', (done) => {
+    chai.request(server).post('/api/v2/auth/signin').send({
+      email: '',
+      password: ''
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Some values are missing');
+      done();
+    });
+  });
+});
+describe('Admin', () => {
+  it('should sign up admin ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup/admin').set('x-auth-token', token).send({
+      email: 'karimi@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'true'
+    })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        done();
+      });
   });
 });
 describe('Users', () => {
