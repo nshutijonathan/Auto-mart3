@@ -1,5 +1,5 @@
-
-
+[![Build Status](https://travis-ci.org/nshutijonathan/Auto-mart3.svg?branch=develop)](https://travis-ci.org/nshutijonathan/Auto-mart3)
+[![Coverage Status](https://coveralls.io/repos/github/nshutijonathan/Auto-mart3/badge.svg?branch=develop)](https://coveralls.io/github/nshutijonathan/Auto-mart3?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb6704768490b0cb3cd4/maintainability)](https://codeclimate.com/github/nshutijonathan/Auto-mart3/maintainability)
 
 # Auto-mart
