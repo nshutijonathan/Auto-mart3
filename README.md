@@ -1,3 +1,7 @@
+
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/cb6704768490b0cb3cd4/maintainability)](https://codeclimate.com/github/nshutijonathan/Auto-mart3/maintainability)
+
 # Auto-mart
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.
 
