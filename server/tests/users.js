@@ -194,6 +194,17 @@ describe('Users', () => {
   });
 });
 describe('Users', () => {
+  it('should sign in user', (done) => {
+    chai.request(server).post('/api/v2/auth/signin').send({
+      email: 'alice@gmail.com',
+      password: 'chris@gmail.com',
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+    });
+  });
+});
+describe('Users', () => {
   it('should get all users', (done) => {
     chai.request(server).get('/api/v2/users').set('x-auth-token', token).end((err, res) => {
       console.log(res.body);
