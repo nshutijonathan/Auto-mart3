@@ -323,3 +323,27 @@ describe('Users', () => {
     });
   });
 });
+describe('Users', () => {
+  it('should not be able to reset password  ', (done) => {
+    chai.request(server).put('/api/v2/rukundo@gmail.com/reset_password').send({
+      old_password: 'rukundo@gmail.comm',
+      new_password: 'rukundo@gmail.com'
+    }).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or old password');
+      done();
+    });
+  });
+  it('should not be able to reset password  ', (done) => {
+    chai.request(server).put('/api/v2/67g/reset_password').send({
+      old_password: 'rukundo@gmail.comm',
+      new_password: 'rukundo@gmail.com'
+    }).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or old password');
+      done();
+    });
+  });
+});

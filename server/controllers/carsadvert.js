@@ -122,9 +122,10 @@ const Cars = {
   async updateprice(req, res) {
     try {
       if (Carsvalidations.priceupdate(req, res)) {
-        const CarId = parseInt(req.params.id, 10);
+        const CarId = req.params.id;
         const FindCar = 'SELECT * FROM cars where id=$1';
         const FoundCar = await pool.query(FindCar, [CarId]);
+        console.log(FoundCar.rowCount);
         if (FoundCar.rowCount === 0) {
           return res.status(404).send({
             status: 404,

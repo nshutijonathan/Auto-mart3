@@ -100,3 +100,85 @@ describe('Cars advert', () => {
       });
   });
 });
+describe('Cars', () => {
+  it('should not get all available cars', (done) => {
+    chai.request(server).get('/api/v2/status/cars?status=available').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('No available car found');
+      res.body.data.should.be.an('array');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not get all available cars in range', (done) => {
+    chai.request(server).get('/api/v2/range/cars?status=available&min_price=300&max_price=5000').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('no cars in specified range');
+      res.body.data.should.be.an('array');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not delete a car advert', (done) => {
+    chai.request(server).get('/api/v2/cars/14').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('Car with id 14 not found');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not get available and new cars ', (done) => {
+    chai.request(server).get('/api/v2/cars/available/new?status=available&state=new').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('no cars ');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not get available and used  ', (done) => {
+    chai.request(server).get('/api/v2/cars/available/used?status=available&state=used').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('no cars ');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not get available with specific manufacturer  ', (done) => {
+    chai.request(server).get('/api/v2/cars/available/manufacturer?status=available&manufacturer=toyota').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('no cars in specified range');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not get available with specific body_type  ', (done) => {
+    chai.request(server).get('/api/v2/cars/available/bodytype?status=available&body_type=trailer').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('no cars in specified range');
+      done();
+    });
+  });
+});
+describe('Cars', () => {
+  it('should not specifi car  ', (done) => {
+    chai.request(server).get('/api/v2/cars/19').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('Car with id 19 not found');
+      done();
+    });
+  });
+});
