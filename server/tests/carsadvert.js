@@ -173,7 +173,7 @@ describe('Cars', () => {
   });
 });
 describe('Cars', () => {
-  it('should not specifi car  ', (done) => {
+  it('should not get specifi car  ', (done) => {
     chai.request(server).get('/api/v2/cars/19').end((err, res) => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(404);
