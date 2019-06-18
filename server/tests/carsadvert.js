@@ -21,6 +21,23 @@ describe('Cars advert', () => {
     });
   });
   it('should create a car advert', (done) => {
+  	chai.request(server).post('/api/v2/car').send({
+      status: 'available',
+      state: 'used',
+      price: '200',
+      manufacturer: 'toyota',
+      model: 'bmw',
+      body_type: 'trailer',
+      photo: 'https://nshutijonathan.github.io/Auto-Mart/UI/assets/showcase.jpg'
+  	})
+      .end((err, res) => {
+  		res.body.should.be.an('object');
+  		res.body.should.have.property('status').eql(402);
+  		res.body.should.have.property('message').eql('Access Denied.No token provided');
+  		done();
+  	});
+  });
+  it('should create a car advert', (done) => {
   	chai.request(server).post('/api/v2/car').set('x-auth-token', token).send({
       status: 'available',
       state: 'used',
@@ -34,6 +51,23 @@ describe('Cars advert', () => {
   		res.body.should.be.an('object');
   		res.body.should.have.property('status').eql(404);
   		res.body.should.have.property('message').eql('create user account first');
+  		done();
+  	});
+  });
+  it('should create a car advert', (done) => {
+  	chai.request(server).post('/api/v2/car').set('x-auth-token', fakeToken).send({
+      status: 'available',
+      state: 'used',
+      price: '200',
+      manufacturer: 'toyota',
+      model: 'bmw',
+      body_type: 'trailer',
+      photo: 'https://nshutijonathan.github.io/Auto-Mart/UI/assets/showcase.jpg'
+  	})
+      .end((err, res) => {
+  		res.body.should.be.an('object');
+  		res.body.should.have.property('status').eql(400);
+  		res.body.should.have.property('message').eql('Invalid token');
   		done();
   	});
   });
