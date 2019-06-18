@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_URL}`);
+    console.log(`connected to database ${process.env.DATABASE_OG}`);
   });
 }
 if (process.env.NODE_ENV === 'testing') {
