@@ -8,6 +8,10 @@
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.
 
 
+# User Interface
+
+![AUTO-MART](images/ui.PNG "auto-mart")
+
 ## UI Technologies
 * HTML.
 * CSS.
@@ -74,17 +78,15 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 ```
 {
     "status": 200,
-    "success": "logged in",
+    "success": "successfully logged in",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNwb25zZSI6eyJpZCI6NDI1LCJmaXJzdG5hbWUiOiJzb21lb25lIiwibGFzdG5hbWUiOiJzb21lb25lIiwidXNlcm5hbWUiOiJzb21lb25lIiwiZW1haWwiOiJzb21lb25lQGVwaWNtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJDNleFVENUtnUDJza3J0MzloYTdPQS5CdVZVa1E1alQvbk9na1hjeE4uNk04MFB6cXBSVUFlIiwiaXNhZG1pbiI6ZmFsc2UsInJlZ2lzdGVyZWQiOiIyMDE5LTA0LTAxVDIyOjAwOjAwLjAwMFoifSwiaWF0IjoxNTU0MjM1NzI5LCJleHAiOjE1NTQyNDY1Mjl9.tE3In1DmIvG8V4x7qePcSEAlKLCUIdlCaqKCzI5XaoY",
     "data": [
         {
             "id": 425,
             "firstname": "someone",
             "lastname": "someone",
-            "username": "someone",
             "email": "someone@epicmail.com",
-            "isadmin": false,
-            "registered": "2019-04-01T22:00:00.000Z"
+
         }
     ]
 }
