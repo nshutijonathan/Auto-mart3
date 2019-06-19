@@ -4,6 +4,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerDocument from '../swagger.json';
 import router from './routes/routes';
 import pool from './database/connect';
 // creating app instance
@@ -25,5 +28,6 @@ app.get('/', (req, res, next) => {
 });
 // process environment
 const port = process.env.PORT || 3000;
+app.use('/apis-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(port, () => console.log(`Listening on port ${port}`));
 export default app;
