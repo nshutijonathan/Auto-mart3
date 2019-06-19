@@ -5,11 +5,11 @@ dotenv.config();
 let pool = {};
 if (process.env.NODE_ENV === 'development') {
   pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_OG
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_URL}`);
+    console.log(`connected to database ${process.env.DATABASE_OG}`);
   });
 }
 if (process.env.NODE_ENV === 'testing') {
@@ -24,11 +24,11 @@ if (process.env.NODE_ENV === 'testing') {
 }
 if (process.env.NODE_ENV === 'production') {
   pool = new Pool({
-    connectionString: process.env.DATABASE_HEROKU
+    connectionString: process.env.DATABASE_URL
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_HEROKU}`);
+    console.log(`connected to database ${process.env.DATABASE_URL}`);
   });
 }
 export default pool;

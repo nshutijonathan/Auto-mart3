@@ -99,6 +99,38 @@ describe('Users', () => {
   it('should not register new user ', (done) => {
     chai.request(server).post('/api/v2/auth/signup').send({
       email: 'alice@gmail.com',
+      first_name: '12345',
+      last_name: 'jonathan',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('first_name must be string');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: '@#%^&',
+      last_name: 'jonathan',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('first_name must not contain special characters');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
       first_name: 'nshuti',
       last_name: '',
       password: 'chris@gmail.com',
@@ -109,6 +141,39 @@ describe('Users', () => {
       console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('message').eql('last_name is required');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: '123456',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('last_name must be string');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: '^&&**!',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('last_name must not contain special characters');
       done();
     });
   });
@@ -133,6 +198,38 @@ describe('Users', () => {
       email: 'alice@gmail.com',
       first_name: 'nshuti',
       last_name: 'jonathan',
+      password: 'asd',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('password is too short');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: '123',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('password is too short');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
       password: 'alice@gmail.com@@##',
       address: '',
       user_type: 'buyer',
@@ -141,6 +238,22 @@ describe('Users', () => {
       console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('message').eql('address is required');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'alice@gmail.com@@##',
+      address: '@#$%%!@',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('address must not contail special characters');
       done();
     });
   });
@@ -183,12 +296,60 @@ describe('Users', () => {
       last_name: 'jonathan',
       password: 'alice@gmail.com@@##',
       address: 'kigali',
+      user_type: '',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('the user_type field is required');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'alice@gmail.com@@##',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: ''
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('the is_admin field is required');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'alice@gmail.com@@##',
+      address: 'kigali',
       user_type: 'buyer',
       is_admin: 'true'
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
-      res.body.should.have.property('message').eql('is_admin field must be set to false');
+      res.body.should.have.property('message').eql('this is_admin field  must be false');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'alice@gmail.com@@##',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'zero'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('message').eql('this is_admin field must be true or false');
       done();
     });
   });
@@ -215,6 +376,30 @@ describe('Users', () => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(401);
       res.body.should.have.property('message').eql('INVALID email or password');
+      done();
+    });
+  });
+  it('should not sign in user', (done) => {
+    chai.request(server).post('/api/v2/auth/signin').send({
+      email: 'ggggg',
+      password: ''
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Some values are missing');
+      done();
+    });
+  });
+  it('should not sign in user', (done) => {
+    chai.request(server).post('/api/v2/auth/signin').send({
+      email: '',
+      password: 'bbbb'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Some values are missing');
       done();
     });
   });
@@ -316,6 +501,48 @@ describe('Users', () => {
   it('should not delete a user', (done) => {
     chai.request(server).delete('/api/v2/users/1').set('x-auth-token', fakeToken).end((err, res) => {
       console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('Invalid token');
+      done();
+    });
+  });
+});
+describe('Users', () => {
+  it('should not be able to reset password  ', (done) => {
+    chai.request(server).put('/api/v2/rukundo@gmail.com/reset_password').send({
+      old_password: 'rukundo@gmail.comm',
+      new_password: 'rukundo@gmail.com'
+    }).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or old password');
+      done();
+    });
+  });
+  it('should not be able to reset password  ', (done) => {
+    chai.request(server).put('/api/v2/67g/reset_password').send({
+      old_password: 'rukundo@gmail.comm',
+      new_password: 'rukundo@gmail.com'
+    }).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or old password');
+      done();
+    });
+  });
+});
+describe('Users', () => {
+  it('should not be able to get current user  ', (done) => {
+    chai.request(server).get('/api/v2/user/me').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(402);
+      res.body.should.have.property('message').eql('Access Denied.No token provided');
+      done();
+    });
+  });
+  it('should not be able to get current user  ', (done) => {
+    chai.request(server).get('/api/v2/user/me').set('x-auth-token', fakeToken).end((err, res) => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Invalid token');

@@ -58,13 +58,13 @@ class Carsvalidations {
     if (!(req.body.price > 0)) {
       throw Error('Price must be valid');
     }
-    if (!(validator.isNumeric(req.body.amount))) {
+    if (!(validator.isNumeric(req.body.price))) {
       throw Error('Invalid amount syntax');
     }
-    if (validator.isEmpty(req.body.amount)) {
+    if (validator.isEmpty(req.body.price)) {
       throw Error('this field amount is required');
     }
-    if (req.body.amount < 1) {
+    if (req.body.price < 1) {
       throw Error('Invalid amount');
     } else {
 

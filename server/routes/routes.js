@@ -4,7 +4,6 @@ import admin from '../middlewares/admin';
 import Users from '../controllers/users';
 import Cars from '../controllers/carsadvert';
 import Orders from '../controllers/purchaseorders';
-import seller from '../middlewares/seller';
 import { imageUploader } from '../middlewares/claudinary';
 // defining middleware routes
 const router = express.Router();
