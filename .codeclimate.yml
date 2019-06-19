@@ -1,2 +1,3 @@
 exclude_patterns:
-- "server/tests"
+- "server/tests/*.js"
+-"server/validations/*.js"
