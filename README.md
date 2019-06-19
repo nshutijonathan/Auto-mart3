@@ -19,7 +19,7 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 ### Heroku link Example
 
-[Auto-mart](https://auto-mart1.herokuapp.com/)
+[Auto-mart](https://auto-mart-challenge3.herokuapp.com/)
 
 
 ## API ENDPOINTS
