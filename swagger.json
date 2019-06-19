@@ -9,8 +9,8 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "auto-mart1.herokuapp.com",
-    "basePath": "/api/v1",
+    "host": "auto-mart-challenge3.herokuapp.com",
+    "basePath": "/api/v2",
     "tags": [{
             "name": "Users",
             "description": "API for users in the system"
