@@ -78,4 +78,40 @@ describe('car Orders', () => {
         done();
       });
   });
+  it('should  not update purchasing order', (done) => {
+    chai.request(server).patch('/api/v2/11/price').set('x-auth-token', token)
+      .send({
+        amount: 'qwwee'
+      })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql('Invalid amount syntax');
+        done();
+      });
+  });
+  it('should  not update purchasing order', (done) => {
+    chai.request(server).patch('/api/v2/11/price').set('x-auth-token', token)
+      .send({
+        amount: ''
+      })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql('Invalid amount syntax');
+        done();
+      });
+  });
+  it('should  not update purchasing order', (done) => {
+    chai.request(server).patch('/api/v2/11/price').set('x-auth-token', token)
+      .send({
+        amount: '-4'
+      })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql('Invalid amount');
+        done();
+      });
+  });
 });

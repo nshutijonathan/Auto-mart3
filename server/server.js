@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import swaggerDocument from '../swagger.json';
 import router from './routes/routes';
-
+import method from './middlewares/methods';
 // creating app instance
 const app = express();
 
@@ -16,6 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
+app.use(method);
 dotenv.config();
 // console.log(`${process.env.NODE_ENV}`);
 // home route

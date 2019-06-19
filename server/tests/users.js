@@ -14,8 +14,8 @@ describe('get welcome message', () => {
     chai.request(server).get('/').end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
-      res.body.should.have.property('status').eql(200);
-      res.body.should.have.property('message').eql('welcome to Auto-Mart3');
+      res.body.should.have.property('status').eql(405);
+      res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
       done();
     });
   });
