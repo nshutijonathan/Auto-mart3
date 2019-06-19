@@ -52,8 +52,6 @@ const Users = {
   },
   async  admincreate(req, res) {
     const email = [req.user.email];
-    const emailvalue = req.user.email;
-    const owner = req.user.id;
     const checkUser = 'SELECT * FROM users WHERE email=$1';
     const FoundUser = await pool.query(checkUser, email);
     if (FoundUser.rowCount === 0) {
@@ -155,7 +153,6 @@ const Users = {
 
     try {
       const { rows } = await pool.query(text, [req.params.email]);
-      console.log(rows);
       if (!rows[0]) {
         return res.status(401).send({
           status: 401,
@@ -224,7 +221,6 @@ const Users = {
     const user_id = req.user.id;
     try {
       const { rows } = await pool.query('SELECT * FROM users WHERE id=$1', [user_id]);
-      console.log(req.user);
       if (rows.length > 0) {
         return res.status(200).send({
           status: 200,

@@ -7,9 +7,11 @@ import server from '../server';
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
+// define a dotenv variables;
 const token = process.env.jwtPrivateKey;
 const fakeToken = process.env.INVALID_TOKEN;
 const date = new Date();
+// testing all cars advert endpoints;
 describe('Cars advert', () => {
   it('should get all car adverts', (done) => {
     chai.request(server).get('/api/v2/cars').end((err, res) => {
@@ -103,6 +105,7 @@ describe('Cars advert', () => {
       });
   });
 });
+// testing get methods all cars with types;
 describe('Cars', () => {
   it('should not get all available cars', (done) => {
     chai.request(server).get('/api/v2/status/cars?status=available').end((err, res) => {

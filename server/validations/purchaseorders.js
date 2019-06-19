@@ -1,5 +1,5 @@
 import validator from 'validator';
-
+// All orders validations class definitions;
 class Ordersvalidations {
   static create(req, res) {
     if (validator.isEmpty(req.body.car_id)) {
@@ -22,6 +22,7 @@ class Ordersvalidations {
     return true;
   }
 
+  // validating patching price
   static patchprice(req, res) {
     if (!(validator.isNumeric(req.body.amount))) {
       throw Error('Invalid amount syntax');

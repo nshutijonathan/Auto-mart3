@@ -1,5 +1,5 @@
 import validator from 'validator';
-
+// Cars advert class definition;
 class Carsvalidations {
   static createcarsad(req, res) {
     if (validator.isEmpty(req.body.state)) {
@@ -51,6 +51,7 @@ class Carsvalidations {
     return true;
   }
 
+  // validate price update method
   static priceupdate(req, res) {
     if (!(req.body.price)) {
       throw Error('this price field  is required ');

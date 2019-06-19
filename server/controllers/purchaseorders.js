@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
+
 import pool from '../database/connect';
-import Carsvalidations from '../validations/carsadvert';
 import Ordersvalidations from '../validations/purchaseorders';
 
 const date = new Date();
@@ -101,7 +100,7 @@ const Orders = {
             message: `The Order with ${req.params.id} id  is not Yours`
           });
         }
-        console.log(FoundOrder.rows[0]);
+
         if (FoundOrder.rows[0].status !== 'pending') {
           return res.status(400).send({
             status: 400,

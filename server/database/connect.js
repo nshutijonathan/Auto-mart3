@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
-
+// node environments;
 dotenv.config();
 let pool = {};
 if (process.env.NODE_ENV === 'development') {
@@ -19,7 +19,6 @@ if (process.env.NODE_ENV === 'testing') {
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_TESTING}`);
   });
 }
 if (process.env.NODE_ENV === 'production') {
@@ -28,7 +27,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_URL}`);
   });
 }
 export default pool;

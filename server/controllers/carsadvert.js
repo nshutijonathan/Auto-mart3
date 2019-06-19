@@ -84,7 +84,6 @@ const Cars = {
 
           });
         }
-        console.log(FoundCar.rows[0]);
         if (req.user.id !== FoundCar.rows[0].owner) {
           return res.status(401).send({
             status: 401,
@@ -125,7 +124,6 @@ const Cars = {
         const CarId = req.params.id;
         const FindCar = 'SELECT * FROM cars where id=$1';
         const FoundCar = await pool.query(FindCar, [CarId]);
-        console.log(FoundCar.rowCount);
         if (FoundCar.rowCount === 0) {
           return res.status(404).send({
             status: 404,

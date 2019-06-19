@@ -1,5 +1,5 @@
 import validator from 'validator';
-
+// All users validation class definition;
 class Usersvalidations {
   static validatesignup(req, res) {
     if (typeof req.body.email === 'number') {
@@ -66,6 +66,7 @@ class Usersvalidations {
     }
   }
 
+  // admin creation validations;
   static validateadminsignup(req, res) {
     if (typeof req.body.email === 'number') {
       throw Error('your email must look like  this ex:andela@gmail.com');
