@@ -21,6 +21,10 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 
 [Auto-mart](https://auto-mart-challenge3.herokuapp.com/)
 
+### Swagger link Example
+[Auto-mart-swagger](https://auto-mart-challenge3.herokuapp.com/apis-docs/)
+
+
 
 ## API ENDPOINTS
 | Ressource URL | Methods  | Description  |
