@@ -48,6 +48,47 @@ Auto Mart is an online marketplace for automobiles of diverse makes, model or bo
 | /api/v2/cars/available&new | GET | Get all available and new cars |
 | /api/v2/cars/available&used | GET | Get all available and used cars  |
 
+
+### POST api/v2/auth/signup
+```
+{
+    "status": 201,
+    "message": "user is successfully registered",
+    "data": [
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNwb25zZSI6eyJpZCI6NDI1LCJmaXJzdG5hbWUiOiJzb21lb25lIiwibGFzdG5hbWUiOiJzb21lb25lIiwidXNlcm5hbWUiOiJzb21lb25lIiwiZW1haWwiOiJzb21lb25lQGVwaWNtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJDNleFVENUtnUDJza3J0MzloYTdPQS5CdVZVa1E1alQvbk9na1hjeE4uNk04MFB6cXBSVUFlIiwiaXNhZG1pbiI6ZmFsc2UsInJlZ2lzdGVyZWQiOiIyMDE5LTA0LTAxVDIyOjAwOjAwLjAwMFoifSwiaWF0IjoxNTU0MjM1NjczfQ.VHgTeFNx4FRbNPENp0JY2Q6lK5cT5QaBZ-RMIH6kIag",
+            "user": {
+                "id": 425,
+                "firstname": "someone",
+                "lastname": "someone",
+                "username": "someone",
+                "email": "someone@epicmail.com",
+                "isadmin": 'false'
+            }
+        }
+    ]
+}
+```
+### POST api/v2/auth/signin
+
+```
+{
+    "status": 200,
+    "success": "logged in",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNwb25zZSI6eyJpZCI6NDI1LCJmaXJzdG5hbWUiOiJzb21lb25lIiwibGFzdG5hbWUiOiJzb21lb25lIiwidXNlcm5hbWUiOiJzb21lb25lIiwiZW1haWwiOiJzb21lb25lQGVwaWNtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJDNleFVENUtnUDJza3J0MzloYTdPQS5CdVZVa1E1alQvbk9na1hjeE4uNk04MFB6cXBSVUFlIiwiaXNhZG1pbiI6ZmFsc2UsInJlZ2lzdGVyZWQiOiIyMDE5LTA0LTAxVDIyOjAwOjAwLjAwMFoifSwiaWF0IjoxNTU0MjM1NzI5LCJleHAiOjE1NTQyNDY1Mjl9.tE3In1DmIvG8V4x7qePcSEAlKLCUIdlCaqKCzI5XaoY",
+    "data": [
+        {
+            "id": 425,
+            "firstname": "someone",
+            "lastname": "someone",
+            "username": "someone",
+            "email": "someone@epicmail.com",
+            "isadmin": false,
+            "registered": "2019-04-01T22:00:00.000Z"
+        }
+    ]
+}
+```
 ### clone the Application
 
 [Github](https://github.com/nshutijonathan/Auto-mart3)
@@ -112,6 +153,7 @@ npm install node
 The installation of this application is fairly straightforward, After cloning this repository to your local machine,CD into the package folder using your terminal and run the following
 
 ```
+
 > npm install
 ```
 ## Database
@@ -124,6 +166,7 @@ DATABASE_URL=postgres://[USERNAME]:[PASSWORD]@localhost/[DATABASE_NAME]
 
 
 It will install the node_modules which will help you run the project on your local machine.
+```
 
 ## Run the server
 ```
