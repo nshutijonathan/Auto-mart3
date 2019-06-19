@@ -60,7 +60,7 @@ class Usersvalidations {
       throw Error('this is_admin field must be true or false');
     }
     if (req.body.is_admin === 'true') {
-      throw Error('is_admin field must be set to false');
+      throw Error('this is_admin field  must be false');
     } else {
       return true;
     }
@@ -122,7 +122,7 @@ class Usersvalidations {
       throw Error('this is_admin field must be true ');
     }
     if (req.body.is_admin === 'false') {
-      throw Error('is_admin field must be set to true');
+      throw Error('this is_admin field must be true');
     } else {
       return true;
     }
