@@ -105,7 +105,7 @@ Install Node
 ```
 npm install node
 ```
-Install Postgres
+## Install Postgres
 ```
 [Postgres](http://www.postgresqltutorial.com/install-postgresql/)
 ## Installing
@@ -114,10 +114,7 @@ The installation of this application is fairly straightforward, After cloning th
 ```
 > npm install
 ```
-
-## Database setup
-
-```
+## Database
 Creata a .env file
 
 Copy and Paste the DATABASE_URL
