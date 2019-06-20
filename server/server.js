@@ -19,7 +19,6 @@ app.use(router);
 app.use('/apis-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(method);
 dotenv.config();
-// console.log(`${process.env.NODE_ENV}`);
 // home route
 app.get('/', (req, res) => {
   return res.status(200).send({
