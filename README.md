@@ -1,4 +1,5 @@
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3230ae8f8d7c479aae949c7e0291de83)](https://app.codacy.com/app/nshutijonathan/Auto-mart3?utm_source=github.com&utm_medium=referral&utm_content=nshutijonathan/Auto-mart3&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/nshutijonathan/Auto-mart3.svg?branch=develop)](https://travis-ci.org/nshutijonathan/Auto-mart3)
 [![Coverage Status](https://coveralls.io/repos/github/nshutijonathan/Auto-mart3/badge.svg?branch=develop)](https://coveralls.io/github/nshutijonathan/Auto-mart3?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb6704768490b0cb3cd4/maintainability)](https://codeclimate.com/github/nshutijonathan/Auto-mart3/maintainability)
