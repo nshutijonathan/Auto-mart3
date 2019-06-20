@@ -7,6 +7,7 @@ import server from '../server';
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
+const date = new Date();
 const token = process.env.jwtPrivateKey;
 const fakeToken = process.env.INVALID_TOKEN;
 
@@ -111,6 +112,59 @@ describe('car Orders', () => {
         res.body.should.be.an('object');
         res.body.should.have.property('status').eql(400);
         res.body.should.have.property('message').eql('Invalid amount');
+        done();
+      });
+  });
+  it('should   update purchasing order', (done) => {
+    chai.request(server).patch('/api/v2/11/price').set('x-auth-token', token)
+      .send({
+        amount: '6000'
+      })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        done();
+      });
+  });
+});
+describe('Cars orders', () => {
+  it('should not create purchasing order', (done) => {
+    const payload = {
+      id: 1,
+      email: 'alice@gmail.com',
+      user_type: 'buyer',
+      is_admin: 'true'
+    };
+    const payloadToken = jwt.sign(payload, process.env.tokens);
+    chai.request(server).post('/api/v2/order').set('x-auth-token', payloadToken).send({
+      car_id: 1,
+      amount: '4000'
+    })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql('Invalid token');
+        done();
+      });
+  });
+  it('should  not create purchasing order', (done) => {
+    const payload = {
+      id: '1',
+      email: 'alice@gmail.com',
+      user_type: 'buyer',
+      is_admin: 'true'
+    };
+    const payloadToken = jwt.sign(payload, process.env.tokens);
+    const date = new Date();
+    chai.request(server).post('/api/v2/order').set('x-auth-token', payloadToken).send({
+      car_id: 1,
+      buyer: payloadToken.id,
+      date,
+      amount: '4000'
+    })
+      .end((err, res) => {
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql('Invalid token');
         done();
       });
   });

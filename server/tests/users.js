@@ -48,6 +48,24 @@ describe('Users', () => {
     });
   });
   it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup/admin').set('x-auth-token', token).send({
+      email: 'ela@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'chris@gmail.com',
+      address: 'kigali',
+      user_type: 'admin',
+      is_admin: 'true'
+    })
+      .end((err, res) => {
+        console.log(res.body);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(404);
+        res.body.should.have.property('message').eql('This token can\'t create an admin,token owner is no longer in db');
+        done();
+      });
+  });
+  it('should not register new user ', (done) => {
     chai.request(server).post('/api/v2/auth/signup').send({
       email: 'alice@gmail.com',
       first_name: 'nshuti',
@@ -538,6 +556,14 @@ describe('Users', () => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(402);
       res.body.should.have.property('message').eql('Access Denied.No token provided');
+      done();
+    });
+  });
+  it('should be able to get current user  ', (done) => {
+    chai.request(server).get('/api/v2/user/me').set('x-auth-token', token).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(404);
+      res.body.should.have.property('message').eql('Current user User not found');
       done();
     });
   });

@@ -9,10 +9,8 @@ if (process.env.NODE_ENV === 'development') {
   });
 
   pool.on('connect', () => {
-    console.log(`connected to database ${process.env.DATABASE_OG}`);
   });
-}
-if (process.env.NODE_ENV === 'testing') {
+} else if (process.env.NODE_ENV === 'testing') {
   pool = new Pool({
     connectionString: process.env.DATABASE_TESTING
 
@@ -20,8 +18,7 @@ if (process.env.NODE_ENV === 'testing') {
 
   pool.on('connect', () => {
   });
-}
-if (process.env.NODE_ENV === 'production') {
+} else if (process.env.NODE_ENV === 'production') {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL
   });

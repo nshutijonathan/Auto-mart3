@@ -52,7 +52,7 @@ describe('Cars advert', () => {
       .end((err, res) => {
   		res.body.should.be.an('object');
   		res.body.should.have.property('status').eql(404);
-  		res.body.should.have.property('message').eql('create user account first');
+  		res.body.should.have.property('message').eql('Invalid URl of the photo');
   		done();
   	});
   });

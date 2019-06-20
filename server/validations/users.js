@@ -1,7 +1,7 @@
 import validator from 'validator';
 // All users validation class definition;
 class Usersvalidations {
-  static validatesignup(req, res) {
+  static create(req, res) {
     if (typeof req.body.email === 'number') {
       throw Error('your email must look like  this ex:andela@gmail.com');
     }
@@ -67,7 +67,7 @@ class Usersvalidations {
   }
 
   // admin creation validations;
-  static validateadminsignup(req, res) {
+  static admin(req, res) {
     if (typeof req.body.email === 'number') {
       throw Error('your email must look like  this ex:andela@gmail.com');
     }

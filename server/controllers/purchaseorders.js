@@ -66,7 +66,7 @@ const Orders = {
       });
     }
   },
-  async allorders(req, res) {
+  async orders(req, res) {
     try {
       const text = 'SELECT * FROM orders';
       const { rows } = await pool.query(text);

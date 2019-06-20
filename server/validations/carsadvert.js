@@ -116,7 +116,7 @@ class Carsvalidations {
     return true;
   }
 
-  static availablenew(req, res) {
+  static new(req, res) {
     if (!(req.query.status)) {
       throw Error('status is required');
     }
@@ -134,7 +134,7 @@ class Carsvalidations {
     return true;
   }
 
-  static availableused(req, res) {
+  static used(req, res) {
     if (!(req.query.status)) {
       throw Error('status is required');
     }
@@ -152,7 +152,7 @@ class Carsvalidations {
     return true;
   }
 
-  static availablemanufactures(req, res) {
+  static manufactures(req, res) {
     if (!(req.query.status)) {
       throw Error('status is required');
     }
@@ -173,7 +173,7 @@ class Carsvalidations {
     return true;
   }
 
-  static availablebodytypes(req, res) {
+  static bodytypes(req, res) {
     if (!(req.query.status)) {
       throw Error('status is required');
     }

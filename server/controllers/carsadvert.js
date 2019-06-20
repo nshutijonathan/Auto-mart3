@@ -56,7 +56,7 @@ const Cars = {
       });
     }
   },
-  async allcars(req, res) {
+  async cars(req, res) {
   	try {
   		const text = 'SELECT * FROM cars';
   		const { rows } = await pool.query(text);
@@ -273,7 +273,7 @@ const Cars = {
   },
   async availablenewcars(req, res) {
     try {
-      if (Carsvalidations.availablenew(req, res)) {
+      if (Carsvalidations.new(req, res)) {
         const {
           status,
           state
@@ -302,7 +302,7 @@ const Cars = {
   },
   async availableusedcars(req, res) {
     try {
-      if (Carsvalidations.availableused(req, res)) {
+      if (Carsvalidations.used(req, res)) {
         const {
           status,
           state
@@ -331,7 +331,7 @@ const Cars = {
   },
   async availablemanufactures(req, res) {
     try {
-      if (Carsvalidations.availablemanufactures(req, res)) {
+      if (Carsvalidations.manufactures(req, res)) {
         const FindCars = 'SELECT * FROM cars WHERE status=$1 AND manufacturer=$2';
         const values = [req.query.status, req.query.manufacturer];
         const Found = await pool.query(FindCars, values);
@@ -356,7 +356,7 @@ const Cars = {
   },
   async availablebodytypes(req, res) {
     try {
-      if (Carsvalidations.availablebodytypes(req, res)) {
+      if (Carsvalidations.bodytypes(req, res)) {
         const FindCars = 'SELECT * FROM cars WHERE status=$1 AND body_type=$2';
         const values = [req.query.status, req.query.body_type];
         const Found = await pool.query(FindCars, values);
