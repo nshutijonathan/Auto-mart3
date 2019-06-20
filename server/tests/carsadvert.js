@@ -7,9 +7,11 @@ import server from '../server';
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
+// define a dotenv variables;
 const token = process.env.jwtPrivateKey;
 const fakeToken = process.env.INVALID_TOKEN;
 const date = new Date();
+// testing all cars advert endpoints;
 describe('Cars advert', () => {
   it('should get all car adverts', (done) => {
     chai.request(server).get('/api/v2/cars').end((err, res) => {
@@ -17,6 +19,14 @@ describe('Cars advert', () => {
       res.body.should.have.property('status').eql(200);
       res.body.should.have.property('message').eql('Cars adverts retrieved successfully');
       res.body.data.should.be.an('array');
+      done();
+    });
+  });
+  it('should not get all car adverts', (done) => {
+    chai.request(server).get('//api/v2/cars/').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(405);
+      res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
       done();
     });
   });
@@ -34,23 +44,6 @@ describe('Cars advert', () => {
   		res.body.should.be.an('object');
   		res.body.should.have.property('status').eql(402);
   		res.body.should.have.property('message').eql('Access Denied.No token provided');
-  		done();
-  	});
-  });
-  it('should not create a car advert', (done) => {
-  	chai.request(server).post('/api/v2/car').set('x-auth-token', token).send({
-      status: 'available',
-      state: 'used',
-      price: '200',
-      manufacturer: 'toyota',
-      model: 'bmw',
-      body_type: 'trailer',
-      photo: 'https://nshutijonathan.github.io/Auto-Mart/UI/assets/showcase.jpg'
-  	})
-      .end((err, res) => {
-  		res.body.should.be.an('object');
-  		res.body.should.have.property('status').eql(404);
-  		res.body.should.have.property('message').eql('create user account first');
   		done();
   	});
   });
@@ -103,6 +96,7 @@ describe('Cars advert', () => {
       });
   });
 });
+// testing get methods all cars with types;
 describe('Cars', () => {
   it('should not get all available cars', (done) => {
     chai.request(server).get('/api/v2/status/cars?status=available').end((err, res) => {
@@ -368,11 +362,19 @@ describe('Cars', () => {
   });
 });
 describe('Cars', () => {
-  it('should not get specifi car  ', (done) => {
+  it('should not get specific car  ', (done) => {
     chai.request(server).get('/api/v2/cars/19').end((err, res) => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(404);
       res.body.should.have.property('message').eql('Car with id 19 not found');
+      done();
+    });
+  });
+  it('should not get specific car  ', (done) => {
+    chai.request(server).get('///api/v2/cars/19/').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(405);
+      res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
       done();
     });
   });

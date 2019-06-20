@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
+
 import pool from '../database/connect';
-import Carsvalidations from '../validations/carsadvert';
 import Ordersvalidations from '../validations/purchaseorders';
 
 const date = new Date();
@@ -32,6 +31,12 @@ const Orders = {
           return res.status(404).send({
             status: 404,
             message: `Car with id ${req.body.car_id} is sold`
+          });
+        }
+        if (FoundUser.rows[0].id === FoundCar.rows[0].owner) {
+          return res.status(401).send({
+            status: 401,
+            message: 'this advert is yours,can not order it'
           });
         }
         const carPrice = FoundCar.rows[0].price;
@@ -67,7 +72,7 @@ const Orders = {
       });
     }
   },
-  async allorders(req, res) {
+  async orders(req, res) {
     try {
       const text = 'SELECT * FROM orders';
       const { rows } = await pool.query(text);
@@ -101,7 +106,7 @@ const Orders = {
             message: `The Order with ${req.params.id} id  is not Yours`
           });
         }
-        console.log(FoundOrder.rows[0]);
+
         if (FoundOrder.rows[0].status !== 'pending') {
           return res.status(400).send({
             status: 400,

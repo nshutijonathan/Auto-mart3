@@ -56,7 +56,7 @@ const Cars = {
       });
     }
   },
-  async allcars(req, res) {
+  async cars(req, res) {
   	try {
   		const text = 'SELECT * FROM cars';
   		const { rows } = await pool.query(text);
@@ -84,7 +84,6 @@ const Cars = {
 
           });
         }
-        console.log(FoundCar.rows[0]);
         if (req.user.id !== FoundCar.rows[0].owner) {
           return res.status(401).send({
             status: 401,
@@ -125,7 +124,6 @@ const Cars = {
         const CarId = req.params.id;
         const FindCar = 'SELECT * FROM cars where id=$1';
         const FoundCar = await pool.query(FindCar, [CarId]);
-        console.log(FoundCar.rowCount);
         if (FoundCar.rowCount === 0) {
           return res.status(404).send({
             status: 404,
@@ -252,16 +250,26 @@ const Cars = {
     }
   },
   async deletecaradvert(req, res) {
-    const CarAdId = req.params.id;
-    const Deletequery = 'DELETE FROM cars WHERE id=$1 returning *';
     try {
-      const { rows } = await pool.query(Deletequery, [CarAdId]);
-      if (!rows[0]) {
+      const CarAdId = req.params.id;
+      const FindCar = 'SELECT * FROM cars WHERE id=$1';
+      const Car = await pool.query(FindCar, [CarAdId]);
+      if (!Car.rows[0]) {
         return res.status(404).send({
           status: 404,
           message: `Car  with id ${req.params.id} not found`
         });
       }
+      if (Car.rows[0].owner !== req.user.id) {
+        return res.status(401).send({
+          status: 401,
+          message: 'this advert is not yours,can not delete it'
+        });
+      }
+      const Deletequery = 'DELETE FROM cars WHERE id=$1 returning *';
+      await pool.query(Deletequery, [CarAdId]);
+
+
       return res.status(200).send({
         status: 200,
         message: `Car with id ${req.params.id} deleted successfully`
@@ -275,7 +283,7 @@ const Cars = {
   },
   async availablenewcars(req, res) {
     try {
-      if (Carsvalidations.availablenew(req, res)) {
+      if (Carsvalidations.new(req, res)) {
         const {
           status,
           state
@@ -304,7 +312,7 @@ const Cars = {
   },
   async availableusedcars(req, res) {
     try {
-      if (Carsvalidations.availableused(req, res)) {
+      if (Carsvalidations.used(req, res)) {
         const {
           status,
           state
@@ -333,7 +341,7 @@ const Cars = {
   },
   async availablemanufactures(req, res) {
     try {
-      if (Carsvalidations.availablemanufactures(req, res)) {
+      if (Carsvalidations.manufactures(req, res)) {
         const FindCars = 'SELECT * FROM cars WHERE status=$1 AND manufacturer=$2';
         const values = [req.query.status, req.query.manufacturer];
         const Found = await pool.query(FindCars, values);
@@ -358,7 +366,7 @@ const Cars = {
   },
   async availablebodytypes(req, res) {
     try {
-      if (Carsvalidations.availablebodytypes(req, res)) {
+      if (Carsvalidations.bodytypes(req, res)) {
         const FindCars = 'SELECT * FROM cars WHERE status=$1 AND body_type=$2';
         const values = [req.query.status, req.query.body_type];
         const Found = await pool.query(FindCars, values);

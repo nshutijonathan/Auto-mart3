@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import pool from './connect';
-
+// creating tables;
 export const Createtables = () => {
   const Users = `CREATE TABLE IF NOT EXISTS 
 	users(
@@ -39,14 +39,13 @@ export const Createtables = () => {
   )`;
   const Queries = `${Users};${Cars};${Orders}`;
   pool.query(Queries).then((res) => {
-    console.log(res);
     pool.end();
   })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
 };
+// deleting tables;
 export const Droptables = () => {
   const Users = 'DROP TABLE IF EXISTS users CASCADE';
   const Cars = 'DROP TABLE IF EXISTS cars CASCADE';
@@ -54,27 +53,23 @@ export const Droptables = () => {
   const Queries = `${Users};${Cars};${Orders}`;
   pool.query(Queries)
     .then((res) => {
-      console.log(res);
       pool.end();
     })
     .catch((err) => {
-      console.log(err);
       pool.end();
     });
   pool.on('remove', () => {
-    console.log(`client removed ${Queries}`);
     process.exit(0);
   });
 };
+// Creating an admin user;
 export const Adminindex = () => {
   const hash = bcrypt.hashSync('jonathan', 8);
   const Admin = `INSERT INTO users (email,first_name,last_name,password,address,user_type,is_admin)
 	VALUES ('nshuti@gmail.com','nshuti','jonathan','${hash}','kigali','admin','true') ON CONFLICT DO NOTHING returning * `;
   pool.query(Admin).then((res) => {
-    console.log(res);
     pool.end();
   }).catch((err) => {
-    console.log(err.message);
     pool.end();
   });
 };

@@ -18,7 +18,7 @@ const Users = {
       req.body.is_admin
     ];
     try {
-      if (Usersvalidations.validatesignup(req, res)) {
+      if (Usersvalidations.create(req, res)) {
         const { rows } = await pool.query(createQuery, values);
         const token = jwt.sign({
           id: rows[0].id, email: rows[0].email, user_type: rows[0].user_type, is_admin: rows[0].is_admin
@@ -52,8 +52,6 @@ const Users = {
   },
   async  admincreate(req, res) {
     const email = [req.user.email];
-    const emailvalue = req.user.email;
-    const owner = req.user.id;
     const checkUser = 'SELECT * FROM users WHERE email=$1';
     const FoundUser = await pool.query(checkUser, email);
     if (FoundUser.rowCount === 0) {
@@ -75,7 +73,7 @@ const Users = {
       req.body.is_admin
     ];
     try {
-      if (Usersvalidations.validateadminsignup(req, res)) {
+      if (Usersvalidations.admin(req, res)) {
         const { rows } = await pool.query(createQuery, values);
         const token = jwt.sign({
           id: rows[0].id, email: rows[0].email, user_type: rows[0].user_type, is_admin: rows[0].is_admin
@@ -155,7 +153,6 @@ const Users = {
 
     try {
       const { rows } = await pool.query(text, [req.params.email]);
-      console.log(rows);
       if (!rows[0]) {
         return res.status(401).send({
           status: 401,
@@ -182,7 +179,7 @@ const Users = {
       });
     }
   },
-  async  allusers(req, res) {
+  async  everyusers(req, res) {
     try {
       const text = 'SELECT * FROM users';
       const { rows } = await pool.query(text);
@@ -197,7 +194,7 @@ const Users = {
       });
     }
   },
-  async oneuser(req, res) {
+  async specificuser(req, res) {
     const user_id = req.params.id;
     try {
       const { rows } = await pool.query('SELECT * FROM users WHERE id=$1', [user_id]);
@@ -224,7 +221,6 @@ const Users = {
     const user_id = req.user.id;
     try {
       const { rows } = await pool.query('SELECT * FROM users WHERE id=$1', [user_id]);
-      console.log(req.user);
       if (rows.length > 0) {
         return res.status(200).send({
           status: 200,
