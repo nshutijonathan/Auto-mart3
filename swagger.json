@@ -45,8 +45,7 @@
                     "Users"
                 ],
                 "description": "Create new user in system",
-                "parameters": [
-                    {
+                "parameters": [{
                     "name": "user",
                     "in": "body",
                     "description": "User that we want to create",
@@ -183,13 +182,7 @@
                     "Cars"
                 ],
                 "description": "Creates a new car sale Ad",
-                "parameters": [
-                     {
-                    "name": "x-auth-token",
-                    "in": "header",
-                    "description": "enter token",
-            
-                },{
+                "parameters": [{
                     "name": "car",
                     "in": "body",
                     "description": "Creates a new car sale Ad",
