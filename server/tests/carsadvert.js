@@ -40,23 +40,6 @@ describe('Cars advert', () => {
   	});
   });
   it('should not create a car advert', (done) => {
-  	chai.request(server).post('/api/v2/car').set('x-auth-token', token).send({
-      status: 'available',
-      state: 'used',
-      price: '200',
-      manufacturer: 'toyota',
-      model: 'bmw',
-      body_type: 'trailer',
-      photo: 'https://nshutijonathan.github.io/Auto-Mart/UI/assets/showcase.jpg'
-  	})
-      .end((err, res) => {
-  		res.body.should.be.an('object');
-  		res.body.should.have.property('status').eql(404);
-  		res.body.should.have.property('message').eql('Invalid URl of the photo');
-  		done();
-  	});
-  });
-  it('should not create a car advert', (done) => {
   	chai.request(server).post('/api/v2/car').set('x-auth-token', fakeToken).send({
       status: 'available',
       state: 'used',
