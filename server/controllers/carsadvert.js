@@ -250,16 +250,26 @@ const Cars = {
     }
   },
   async deletecaradvert(req, res) {
-    const CarAdId = req.params.id;
-    const Deletequery = 'DELETE FROM cars WHERE id=$1 returning *';
     try {
-      const { rows } = await pool.query(Deletequery, [CarAdId]);
-      if (!rows[0]) {
+      const CarAdId = req.params.id;
+      const FindCar = 'SELECT * FROM cars WHERE id=$1';
+      const Car = await pool.query(FindCar, [CarAdId]);
+      if (!Car.rows[0]) {
         return res.status(404).send({
           status: 404,
           message: `Car  with id ${req.params.id} not found`
         });
       }
+      if (Car.rows[0].owner !== req.user.id) {
+        return res.status(401).send({
+          status: 401,
+          message: 'this advert is not yours,can not delete it'
+        });
+      }
+      const Deletequery = 'DELETE FROM cars WHERE id=$1 returning *';
+      await pool.query(Deletequery, [CarAdId]);
+
+
       return res.status(200).send({
         status: 200,
         message: `Car with id ${req.params.id} deleted successfully`

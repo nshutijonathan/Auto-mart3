@@ -25,7 +25,7 @@ router.patch('/api/v2/car/:id/price', [auth], Cars.updateprice);
 router.get('/api/v2/cars/:id', Cars.getonecar);
 router.get('/api/v2/status/cars', Cars.unsoldcars);
 router.get('/api/v2/range/cars', Cars.unsoldcarsrange);
-router.delete('/api/v2/cars/:id', [auth, admin], Cars.deletecaradvert);
+router.delete('/api/v2/cars/:id', [auth], Cars.deletecaradvert);
 router.get('/api/v2/cars/available/new', Cars.availablenewcars);
 router.get('/api/v2/cars/available/used', Cars.availableusedcars);
 router.get('/api/v2/cars/available/manufacturer', Cars.availablemanufactures);

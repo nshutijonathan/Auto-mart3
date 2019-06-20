@@ -22,6 +22,14 @@ describe('Cars advert', () => {
       done();
     });
   });
+  it('should not get all car adverts', (done) => {
+    chai.request(server).get('//api/v2/cars/').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(405);
+      res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
+      done();
+    });
+  });
   it('should create a car advert', (done) => {
   	chai.request(server).post('/api/v2/car').send({
       status: 'available',
@@ -354,11 +362,19 @@ describe('Cars', () => {
   });
 });
 describe('Cars', () => {
-  it('should not get specifi car  ', (done) => {
+  it('should not get specific car  ', (done) => {
     chai.request(server).get('/api/v2/cars/19').end((err, res) => {
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(404);
       res.body.should.have.property('message').eql('Car with id 19 not found');
+      done();
+    });
+  });
+  it('should not get specific car  ', (done) => {
+    chai.request(server).get('///api/v2/cars/19/').end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(405);
+      res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
       done();
     });
   });

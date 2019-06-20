@@ -16,6 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
+app.use('/apis-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(method);
 dotenv.config();
 // console.log(`${process.env.NODE_ENV}`);
@@ -28,6 +29,5 @@ app.get('/', (req, res) => {
 });
 // process environment
 const port = process.env.PORT || 3000;
-app.use('/apis-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(port);
 export default app;

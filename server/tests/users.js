@@ -94,6 +94,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('email is required');
       done();
     });
@@ -110,6 +111,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name is required');
       done();
     });
@@ -126,6 +128,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name must be string');
       done();
     });
@@ -142,6 +145,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name must not contain special characters');
       done();
     });
@@ -158,6 +162,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('last_name is required');
       done();
     });
@@ -191,6 +196,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('last_name must not contain special characters');
       done();
     });
@@ -207,6 +213,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is required');
       done();
     });
@@ -223,6 +230,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is too short');
       done();
     });
@@ -239,7 +247,25 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is too short');
+      done();
+    });
+  });
+  it('should not register new user ', (done) => {
+    chai.request(server).post('/api/v2/auth/signup').send({
+      email: 'alice@gmail.com',
+      first_name: 'nshuti',
+      last_name: 'jonathan',
+      password: 'qwertyuioplkjhgfds',
+      address: 'kigali',
+      user_type: 'buyer',
+      is_admin: 'false'
+    }).end((err, res) => {
+      console.log(res.body);
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
+      res.body.should.have.property('message').eql('password is not strong');
       done();
     });
   });
@@ -255,6 +281,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('address is required');
       done();
     });
@@ -271,6 +298,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('address must not contail special characters');
       done();
     });
@@ -287,6 +315,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('your email must look like  this ex:andela@gmail.com');
       done();
     });
@@ -319,6 +348,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('the user_type field is required');
       done();
     });
@@ -335,6 +365,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('the is_admin field is required');
       done();
     });
@@ -351,6 +382,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('this is_admin field  must be false');
       done();
     });
@@ -367,6 +399,7 @@ describe('Users', () => {
     }).end((err, res) => {
       console.log(res.body);
       res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('this is_admin field must be true or false');
       done();
     });
@@ -540,6 +573,17 @@ describe('Users', () => {
   });
   it('should not be able to reset password  ', (done) => {
     chai.request(server).put('/api/v2/67g/reset_password').send({
+      old_password: 'rukundo@gmail.com',
+      new_password: 'rukundo@gmail.com'
+    }).end((err, res) => {
+      res.body.should.be.an('object');
+      res.body.should.have.property('status').eql(401);
+      res.body.should.have.property('message').eql('INVALID email or old password');
+      done();
+    });
+  });
+  it('should not be able to reset password  ', (done) => {
+    chai.request(server).put('/api/v2/67g/reset_password').send({
       old_password: 'rukundo@gmail.comm',
       new_password: 'rukundo@gmail.com'
     }).end((err, res) => {
@@ -574,5 +618,26 @@ describe('Users', () => {
       res.body.should.have.property('message').eql('Invalid token');
       done();
     });
+  });
+});
+describe('Users', () => {
+  it('should sign up the admin', (done) => {
+    chai.request(server).post('/api/v2/auth/signup/admin').set('x-auth-token', token).send({
+
+      email: 'kmgn@gmail.com',
+      first_name: 'amina',
+      last_name: 'ma',
+      password: 'em@gmail.com',
+      address: 'kigali',
+      user_type: 'admin',
+      is_admin: 'true'
+    })
+      .end((err, res) => {
+        console.log(res.body);
+        res.body.should.be.an('object');
+        res.body.should.have.property('status').eql(404);
+        res.body.should.have.property('message').eql('This token can\'t create an admin,token owner is no longer in db');
+        done();
+      });
   });
 });

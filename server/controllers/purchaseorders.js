@@ -33,6 +33,12 @@ const Orders = {
             message: `Car with id ${req.body.car_id} is sold`
           });
         }
+        if (FoundUser.rows[0].id === FoundCar.rows[0].owner) {
+          return res.status(401).send({
+            status: 401,
+            message: 'this advert is yours,can not order it'
+          });
+        }
         const carPrice = FoundCar.rows[0].price;
 		 const createQuery = `INSERT INTO orders(buyer,car_id,created_on,amount,status)
 		VALUES($1,$2,$3,$4,$5) returning *`;
