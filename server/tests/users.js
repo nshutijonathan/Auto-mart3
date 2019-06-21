@@ -12,7 +12,6 @@ const fakeToken = process.env.INVALID_TOKEN;
 describe('get welcome message', () => {
   it('should return welcome message', (done) => {
     chai.request(server).get('/').end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(405);
       res.body.should.have.property('message').eql('METHOD NOT ALLOWED');
@@ -31,7 +30,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(201);
       res.body.should.have.property('message').eql('User successfully created');
@@ -58,7 +56,6 @@ describe('Users', () => {
       is_admin: 'true'
     })
       .end((err, res) => {
-        console.log(res.body);
         res.body.should.be.an('object');
         res.body.should.have.property('status').eql(404);
         res.body.should.have.property('message').eql('This token can\'t create an admin,token owner is no longer in db');
@@ -75,7 +72,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(409);
       res.body.should.have.property('message').eql('User with that Email already exists');
@@ -92,7 +88,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('email is required');
@@ -109,7 +104,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name is required');
@@ -126,7 +120,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name must be string');
@@ -143,7 +136,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('first_name must not contain special characters');
@@ -160,7 +152,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('last_name is required');
@@ -177,7 +168,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('last_name must be string');
@@ -194,7 +184,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('last_name must not contain special characters');
@@ -211,7 +200,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is required');
@@ -228,7 +216,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is too short');
@@ -245,7 +232,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is too short');
@@ -262,7 +248,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('password is not strong');
@@ -279,7 +264,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('address is required');
@@ -296,7 +280,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('address must not contail special characters');
@@ -313,7 +296,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('your email must look like  this ex:andela@gmail.com');
@@ -330,7 +312,6 @@ describe('Users', () => {
       user_type: 'buyersr',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('message').eql('this user_type field must be seller or buyer');
       done();
@@ -346,7 +327,6 @@ describe('Users', () => {
       user_type: '',
       is_admin: 'false'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('the user_type field is required');
@@ -363,7 +343,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: ''
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('the is_admin field is required');
@@ -380,7 +359,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'true'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('this is_admin field  must be false');
@@ -397,7 +375,6 @@ describe('Users', () => {
       user_type: 'buyer',
       is_admin: 'zero'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('this is_admin field must be true or false');
@@ -411,7 +388,6 @@ describe('Users', () => {
       email: 'alice@gmail.com',
       password: 'chris@gmail.com',
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(200);
       res.body.should.have.property('message').eql('Logged in successfully');
@@ -423,7 +399,6 @@ describe('Users', () => {
       email: 'alice@gmail.com',
       password: '2wer'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(401);
       res.body.should.have.property('message').eql('INVALID email or password');
@@ -435,7 +410,6 @@ describe('Users', () => {
       email: 'ggggg',
       password: ''
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Some values are missing');
@@ -447,7 +421,6 @@ describe('Users', () => {
       email: '',
       password: 'bbbb'
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Some values are missing');
@@ -459,7 +432,6 @@ describe('Users', () => {
       email: '',
       password: ''
     }).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Some values are missing');
@@ -494,7 +466,6 @@ describe('Admin', () => {
 describe('Users', () => {
   it('should get all users', (done) => {
     chai.request(server).get('/api/v2/users').set('x-auth-token', token).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(200);
       res.body.should.have.property('message').eql('Users retrieved successfully');
@@ -504,7 +475,6 @@ describe('Users', () => {
   });
   it('should not get all  users', (done) => {
     chai.request(server).get('/api/v2/users').end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(402);
       res.body.should.have.property('message').eql('Access Denied.No token provided');
@@ -513,7 +483,6 @@ describe('Users', () => {
   });
   it('should not get all  users', (done) => {
     chai.request(server).get('/api/v2/users').set('x-auth-token', fakeToken).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Invalid token');
@@ -524,7 +493,6 @@ describe('Users', () => {
 describe('Users', () => {
   it('should delete a user', (done) => {
     chai.request(server).delete('/api/v2/users/1').set('x-auth-token', token).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(200);
       res.body.should.have.property('message').eql('User with id 1 deleted successfully');
@@ -533,7 +501,6 @@ describe('Users', () => {
   });
   it('should not delete a user', (done) => {
     chai.request(server).delete('/api/v2/users/10').set('x-auth-token', token).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(404);
       res.body.should.have.property('message').eql('User with id 10 not found');
@@ -542,7 +509,6 @@ describe('Users', () => {
   });
   it('should not delete a user', (done) => {
     chai.request(server).delete('/api/v2/users/1').end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(402);
       res.body.should.have.property('message').eql('Access Denied.No token provided');
@@ -551,7 +517,6 @@ describe('Users', () => {
   });
   it('should not delete a user', (done) => {
     chai.request(server).delete('/api/v2/users/1').set('x-auth-token', fakeToken).end((err, res) => {
-      console.log(res.body);
       res.body.should.be.an('object');
       res.body.should.have.property('status').eql(400);
       res.body.should.have.property('message').eql('Invalid token');
@@ -633,7 +598,6 @@ describe('Users', () => {
       is_admin: 'true'
     })
       .end((err, res) => {
-        console.log(res.body);
         res.body.should.be.an('object');
         res.body.should.have.property('status').eql(404);
         res.body.should.have.property('message').eql('This token can\'t create an admin,token owner is no longer in db');

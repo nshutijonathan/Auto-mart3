@@ -13,7 +13,6 @@ router.post('/api/v2/auth/signup/admin', [auth, admin], Users.admincreate);
 router.post('/api/v2/auth/signin', Users.signin);
 router.get('/api/v2/users', [auth, admin], Users.everyusers);
 router.get('/api/v2/users/:id', [auth, admin], Users.specificuser);
-// router.get('/api/v2/users/:id', [auth, admin], Users.specificuser);
 router.delete('/api/v2/users/:id', [auth, admin], Users.deleteoneuser);
 router.get('/api/v2/user/me', [auth], Users.currentuser);
 router.put('/api/v2/:email/reset_password', Users.resetpassword);
